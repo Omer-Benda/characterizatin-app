@@ -1,0 +1,73 @@
+
+import React from 'react'
+import SingelQuestion from './SingelQuestion'
+import {Button} from '@mui/material';
+import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
+
+
+export default function Question(props) {
+ 
+  const onLoad=()=>{
+  const randomNumber = Math.ceil((Math.random() * 100));
+  
+  if (randomNumber <=33) {
+    return'PersonaM'
+  }
+  if (randomNumber <=66) {
+    return 'PersonaB'
+
+  } else {
+    return 'PersonaC'
+
+  }
+
+}
+  return (
+    <>
+{props.pageNum=='first' ? <div>
+<img className="App-logo" src="logo.png" />
+<SingelQuestion q=":מינך" f="אחר" s="אישה" t="גבר"/>
+<SingelQuestion q=":איזור מגורים" f=" דרום" s="מרכז" t="צפון"/>
+<SingelQuestion q="?באיזה יבשת תכננת לטייל" f="דרום אמריקה" s="מרכז אמריקה" t="מזרח" fo="לא החלטתי"/>
+<SingelQuestion q=":הרכב הטיסה שלך" f="לבד" s="חברים" t="בן\בת זוג" fo="מחפש פרטנר"/>
+<SingelQuestion q=":תקציב משוער לטיול" f="₪ 15,000" s="₪ 15,000-₪ 30,000" t="₪ 30,000-₪ 50,000" fo='₪ 50,000-₪ 70,000' l='לא מוגבל'/>
+<SingelQuestion q=":תקופת זמן מתוכננת" f="איזור החודש" s="חדושיים שלושה" t="שלושה ארבעה חודשים" fo='איזור החצי שנה' l='לא מוגבל'/>
+
+
+    </div> : ""}
+
+
+
+{props.pageNum=='second' ? <div>
+  <div>
+  <Button onClick={()=>{props.continueClicked('firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250' }}/> </Button>
+
+  </div>
+<img className="App-logo" src="logo.png" />
+
+<h3 style={{color:'black', fontSize:'20px', 
+textAlign:'center', marginLeft:'auto', marginRight:'auto' } }> {props.name}, עוד כמה שאלות וסיימנו <br /> </h3>
+
+<h5 style={
+  {color:'black', fontSize:'15px', 
+   textAlign:'center', marginLeft:'auto', 
+   marginRight:'auto'}}> 
+על השאלות הבאות יש לבחור ערך בין 1-5 מענה כנה על שאלות אילו יעזור לנו להכיר אותך טוב יותר <br /> 
+</h5>
+<SingelQuestion q="חשוב לי מאוד רמת הנקיון בהוסטל" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="חייב לשלב יעדין של בטן-גב בטיול" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="חיי לילה הם חלק משמעותי בטיול שאני מתכנן" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="אני פתוח להצעות ורעיונות חדשים" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="פחות מתחבר לטיולי שטח וטרקים" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="כשאני מגיע ליעד, אני מעוניין להתשקע ולא ממהר לרוץ ליעד הבא" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="אני מכור לאדרנלין" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="אני מחפש להכיר חברים חדשים" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+<SingelQuestion q="בכל הקשור לכספים, אני בזבזן גדול" f="לא מסכים בכלל" s="לא מסכים" t="ניטרלי" fo="מסכים" l="מסכים מאוד"/>
+
+    </div>:"" }
+
+    <Button onClick={() => {props.continueClicked(onLoad) }} variant="contained">{props.pageNum=='first'? 'הבא': 'לחץ לסיום'}</Button>
+
+    </>
+  )
+}
