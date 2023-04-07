@@ -7,20 +7,80 @@ import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 
 export default function Question(props) {
  
-  const onLoad=()=>{
+  const onLoad=()=>{/// זמני , ישונה אחרי שנבנה את קלקולייט- ניתן לייצר מהקריאה אלמנט ורק לשלוח את הערך
   const randomNumber = Math.ceil((Math.random() * 100));
   
   if (randomNumber <=33) {
+    const apiUrl='http://localhost:58583/api/users/1'
+    fetch(apiUrl, 
+      {
+      method: 'PUT',
+      body:JSON.stringify('מוצילר'),
+      headers: new Headers({
+        'Content-Type':'application/json; charset=UTF-8',
+        'Accept':'application/json; charset=UTF-8',
+        })
+        
+      })
+    .then(response => {
+     console.log('response= ',response);
+     console.log('response statuse=', response.status);
+     console.log('response.ok=', response.ok)
+    },
+    (error) => {
+    console.log("err post=", error);
+    });     
+  
     return'PersonaM'
   }
   if (randomNumber <=66) {
+    const apiUrl='http://localhost:58583/api/users/1'
+    fetch(apiUrl, 
+      {
+      method: 'PUT',
+      body:JSON.stringify('בליין'),
+      headers: new Headers({
+        'Content-Type':'application/json; charset=UTF-8',
+        'Accept':'application/json; charset=UTF-8',
+        })
+        
+      })
+    .then(response => {
+     console.log('response= ',response);
+     console.log('response statuse=', response.status);
+     console.log('response.ok=', response.ok)
+    },
+    (error) => {
+    console.log("err post=", error);
+    });     
+  
     return 'PersonaB'
 
+
   } else {
+    const apiUrl='http://localhost:58583/api/users/1'
+    fetch(apiUrl, 
+      {
+      method: 'PUT',
+      body:JSON.stringify('ציל'),
+      headers: new Headers({
+        'Content-Type':'application/json; charset=UTF-8',
+        'Accept':'application/json; charset=UTF-8',
+        })
+        
+      })
+    .then(response => {
+     console.log('response= ',response);
+     console.log('response statuse=', response.status);
+     console.log('response.ok=', response.ok)
+    },
+    (error) => {
+    console.log("err post=", error);
+    });     
+  
     return 'PersonaC'
 
   }
-
 }
   return (
     <>

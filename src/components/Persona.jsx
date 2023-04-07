@@ -13,13 +13,13 @@ export default function Persona(props) {
     position: 'absolute', right:'150px', top:'-120px' }}/> </Button>
   </div>
   {props.pageNum=='mucillar' ? <div>
- <PersonaTemplate name='עומר' pageNum='mucillar'/>
+ <PersonaTemplate name={props.name} pageNum='mucillar'/>
   </div> : ""}
   {props.pageNum=='balyanim' ? <div>
- <PersonaTemplate name='עומר' pageNum='balyanim'/>
+ <PersonaTemplate name={props.name} pageNum='balyanim'/>
   </div> : ""}
   {props.pageNum=='chill' ? <div>
- <PersonaTemplate name='עומר' pageNum='chill'/>
+ <PersonaTemplate name={props.name} pageNum='chill'/>
   </div> : ""}
   
   <Button onClick={() => {props.continueClicked('PersonaTemplate') }} variant="contained">{'אני רוצה להתחיל'}</Button>
