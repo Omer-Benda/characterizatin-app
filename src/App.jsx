@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import Question from './components/Question';
 import Persona from './components/Persona';
 import PersonaTemplate from './components/PersonaTemplate';
+import UserProfile from './components/UserProfile';
 
 function App() {
   const [page, setPage] = useState('');// למחוק אחרי השילוב עם עטר
@@ -58,6 +59,8 @@ useEffect(()=>{
 {page === 'PersonaM' && <Persona name={userInApp.UserLastName} pageNum='mucillar' continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 {page === 'PersonaB' && <Persona name={userInApp.UserFirstName} pageNum='balyanim' continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 {page === 'PersonaC' && <Persona name={userInApp.UserFirstName} pageNum='chill' continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
+
+{page === 'userProfile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail}/>}
 
       </div>
     </div>

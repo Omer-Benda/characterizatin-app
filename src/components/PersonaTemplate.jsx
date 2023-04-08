@@ -11,10 +11,10 @@ export default function PersonaTemplate(props) {
   return (
     <>
 
-<img className="persona-logo" src={props.pageNum+'.jpg'}/>
+<img className="persona-logo" src={props.pageNum+'.jpg'} />
+
   <h3 style={{color:'black', fontSize:'20px', 
   textAlign:'center', marginLeft:'auto', marginRight:'auto', marginTop:'80px' } }>  {props.name} , שמחים  לעדכן כי תהליך האפיון הסתיים<br /> </h3>
-
 <h5 style={
   {color:'black', fontSize:'15px', 
    textAlign:'center', marginLeft:'auto', 
