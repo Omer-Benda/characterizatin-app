@@ -11,7 +11,9 @@ export default function Question(props) {
   const randomNumber = Math.ceil((Math.random() * 100));
   
   if (randomNumber <=33) {
-    const apiUrl='http://localhost:58583/api/users/1'
+    const apiUrl='http://localhost:65095/api/users/1'
+    // const apiUrl='http://localhost:58583/api/users/1'
+
     fetch(apiUrl, 
       {
       method: 'PUT',
@@ -34,7 +36,9 @@ export default function Question(props) {
     return'PersonaM'
   }
   if (randomNumber <=66) {
-    const apiUrl='http://localhost:58583/api/users/1'
+    const apiUrl='http://localhost:65095/api/users/1'
+    // const apiUrl='http://localhost:58583/api/users/1'
+
     fetch(apiUrl, 
       {
       method: 'PUT',
@@ -58,7 +62,8 @@ export default function Question(props) {
 
 
   } else {
-    const apiUrl='http://localhost:58583/api/users/1'
+    const apiUrl='http://localhost:65095/api/users/1'
+    // const apiUrl='http://localhost:58583/api/users/1'
     fetch(apiUrl, 
       {
       method: 'PUT',

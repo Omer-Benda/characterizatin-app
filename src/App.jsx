@@ -13,7 +13,9 @@ function App() {
   const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
 
 useEffect(()=>{
-    const apiUrl='http://localhost:58583/api/users/1'
+    const apiUrl='http://localhost:65095/api/users/1'
+    // const apiUrl='http://localhost:58583/api/users/1'
+
     fetch(apiUrl, 
       {
       method: 'GET',
