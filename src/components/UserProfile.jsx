@@ -1,13 +1,19 @@
 
 import styled from '@emotion/styled';
-import { Avatar, Badge, Button, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
-import React from 'react'
+import { Avatar, Badge, BottomNavigation, BottomNavigationAction, Button, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, margin, padding, Stack } from '@mui/system';
 import AutoStories from '@mui/icons-material/AutoStories';
 import HikingIcon from '@mui/icons-material/Hiking';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+import FolderIcon from '@mui/icons-material/Folder';
+import RestoreIcon from '@mui/icons-material/Restore';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Navigation from './Navigation';
+import Paper from '@mui/material/Paper';
+import TopOfAplication from './TopOfAplication';
+import { Celebration, SelfImprovement } from '@mui/icons-material';
 
 export default function UserProfile(props) {
 
@@ -41,11 +47,29 @@ export default function UserProfile(props) {
     },
   }));
   
+  const [checkType, setCheckType]= useState('')
+
+  useEffect(()=>{
+
+      if (props.personaType=='מוצילר') {
+        setCheckType( <HikingIcon/>)
+      }
+      if (props.personaType=='בליין') {
+       
+        setCheckType(<Celebration/>)
+      }
+      if (props.personaType=='ציל') {
+    
+        setCheckType(<SelfImprovement/>) 
+      }
+      
+  },[])
 
   return (
     <>
+<TopOfAplication label='הפרופיל שלי'  />
 
-<img className="App-logo" src="logo.png" />
+<img className="App-logo" src="logo.png" style={{marginTop:'45px'}} />
 
 <Box style={{marginBottom:'10px', backgroundColor:'#eeeeee', margin:'25px', padding:'25px',  borderRadius:'5%'}}>
   <Stack direction={"row"} spacing={5} justifyContent={'space-around'} >
@@ -54,18 +78,13 @@ export default function UserProfile(props) {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         variant="dot"
       >
-
-
   <Avatar sx={{ width:64, height:64 }} src="/broken-image.jpg" style={{  display: 'flex' } } onClick={()=>{alert('bdika')}} /> 
   </StyledBadge>
-
-<p  style={{color:'black'}}>שלום {props.name} <br /> {props.email} </p>
-
+<p style={{color:'black'}}>שלום {props.name} <br /> {props.email} </p>
  </Stack>
-
 </Box>
 
-<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+<List  sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar style={{
   marginTop:'20px', marginBottom:'15px'
@@ -75,33 +94,39 @@ export default function UserProfile(props) {
           </Avatar>
         </ListItemAvatar>
         <ListItemText
+        style={{ textAlign:'right' }}
           primary=" "
           secondary={
-            <React.Fragment>
+            <React.Fragment >
               <Typography
-                sx={{ display: 'inline' }}
+                sx={{ display: 'inline'}}
                 component="span"
                 variant="body2"
                 color="text.primary"
               >
-               <b> {'יומן המסע שלי'}</b>
+               <b style={{textAlign:'center'}} > {'יומן המסע שלי'}</b>
                <br />
               </Typography>
-              {" לחץ על המחברת לצפייה בסיפור הדרך שלך"}
+               {" לחץ על המחברת לצפייה בסיפור הדרך שלך"}
+             
             </React.Fragment>
           }
         />
       </ListItem>
+
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar style={{
   marginTop:'20px', marginBottom:'15px'
   }}>
           <Avatar>
-            <HikingIcon/>
+          {checkType}
+         {/* <HikingIcon/> */}
+          {/* שליחת האייקון המתאים לפי הפרסונה שהתקבלה */}
           </Avatar>
         </ListItemAvatar>
         <ListItemText
+        style={{ textAlign:'right' }}
           primary=" "
           secondary={
             <React.Fragment>
@@ -111,14 +136,16 @@ export default function UserProfile(props) {
                 variant="body2"
                 color="text.primary"
               >
-               <b> {'יומן המסע שלי'}</b>
+                
+               <b> {"אופיינת כ-" + props.personaType}</b>
                <br />
               </Typography>
-              {" לחץ על המחברת לצפייה בסיפור הדרך שלך"}
+              {"לחץ על האייקון על מנת ללמוד עוד אודות איפיון המערכת והמשמעות עבורך"}
             </React.Fragment>
           }
         />
       </ListItem>
+      
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar style={{
@@ -129,6 +156,7 @@ export default function UserProfile(props) {
           </Avatar>
         </ListItemAvatar>
         <ListItemText
+        style={{ textAlign:'right' }}
           primary=" "
           secondary={
             <React.Fragment>
@@ -138,21 +166,17 @@ export default function UserProfile(props) {
                 variant="body2"
                 color="text.primary"
               >
-               <b> {'יומן המסע שלי'}</b>
+               <b> {'המועדפים שלי'}</b>
                <br />
               </Typography>
-              {" לחץ על המחברת לצפייה בסיפור הדרך שלך"}
+              {"לחץ על ה-לב לצפייה ברשימת המועדפים שלך"}
             </React.Fragment>
           }
         />
       </ListItem>
     </List>
 
-
-
-
-{/* <Button startIcon={<EditIcon/>} variant="contained">  dsfds</Button> */}
-
+<Navigation/>
     </>
   )
 

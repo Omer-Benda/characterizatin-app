@@ -62,7 +62,7 @@ useEffect(()=>{
 {page === 'PersonaB' && <Persona name={userInApp.UserFirstName} pageNum='balyanim' continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 {page === 'PersonaC' && <Persona name={userInApp.UserFirstName} pageNum='chill' continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 
-{page === 'userProfile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail}/>}
+{page === 'userProfile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType}/>}
 
       </div>
     </div>

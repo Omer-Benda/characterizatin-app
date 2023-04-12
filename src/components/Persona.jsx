@@ -10,7 +10,7 @@ export default function Persona(props) {
     <>
     <div>
   <Button onClick={()=>{props.continueClicked('secondQues')}}> <ArrowBackIosNew style={{color:'black',
-    position: 'absolute', right:'150px', top:'-40px' }}/> </Button>
+    position: 'fixed', top: 30, left: 20, right: 0 }}/> </Button>
   </div>
   {props.pageNum=='mucillar' ? <div>
  <PersonaTemplate name={props.name} pageNum='mucillar'/>
