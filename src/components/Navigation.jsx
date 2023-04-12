@@ -15,15 +15,25 @@ import Avatar from '@mui/material/Avatar';
 import { useState } from 'react';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { AccountCircle, CurrencyExchange, Home, TravelExplore } from '@mui/icons-material';
+import Budget from './Budget';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 
-export default function Navigation() {
+export default function Navigation(props) {
   
-const [value, setValue] = useState('recents');
+  // const [pageNav, setPageNav] = useState('');
+ 
+  //  const navigate = useNavigate('')
+
+  //  const navTo =()=>{
+  //    alert('./Budget')
+  //  }
+const [value, setValue] = useState('profile');
 const handleChange = (event, newValue) => {
   setValue(newValue);
 };
   return (
+ 
     <Box sx={{ pb: 1 , width: 150 }} style={{alignItems:'center'}}>
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
     <BottomNavigation value={value} onChange={handleChange}>
@@ -31,11 +41,14 @@ const handleChange = (event, newValue) => {
             label="פרופיל"
             value="profile"
             icon={<AccountCircle />}
+            onClick={() => {props.navTo("profile")}}
           />
           <BottomNavigationAction
             label="ניהול תקציב"
             value="budget"
             icon={<CurrencyExchange />}
+            //  onClick={navTo}
+             onClick={() => {props.navTo("budget")}}
           />
           
           <BottomNavigationAction
@@ -48,7 +61,9 @@ const handleChange = (event, newValue) => {
         </BottomNavigation>
     
         </Paper>
+        
         </Box>
+
   );
 }
 

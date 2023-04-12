@@ -17,6 +17,7 @@ import { Celebration, SelfImprovement } from '@mui/icons-material';
 
 export default function UserProfile(props) {
 
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       backgroundColor: '#44b700',
@@ -145,7 +146,7 @@ export default function UserProfile(props) {
           }
         />
       </ListItem>
-      
+
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar style={{
@@ -176,7 +177,7 @@ export default function UserProfile(props) {
       </ListItem>
     </List>
 
-<Navigation/>
+<Navigation navTo={(page)=>props.continueClicked(page)}/>
     </>
   )
 

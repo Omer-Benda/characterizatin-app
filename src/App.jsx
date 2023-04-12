@@ -6,6 +6,7 @@ import Question from './components/Question';
 import Persona from './components/Persona';
 import PersonaTemplate from './components/PersonaTemplate';
 import UserProfile from './components/UserProfile';
+import Budget from './components/Budget';
 
 function App() {
   const [page, setPage] = useState('');// למחוק אחרי השילוב עם עטר
@@ -62,7 +63,10 @@ useEffect(()=>{
 {page === 'PersonaB' && <Persona name={userInApp.UserFirstName} pageNum='balyanim' continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 {page === 'PersonaC' && <Persona name={userInApp.UserFirstName} pageNum='chill' continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 
-{page === 'userProfile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType}/>}
+{page === 'userProfile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
+
+{page === 'budget' && <Budget continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
+{page === 'profile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 
       </div>
     </div>
