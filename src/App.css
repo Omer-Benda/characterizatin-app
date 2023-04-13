@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .App-characterizatin {
   min-height: 100vh;
   display: flex;
@@ -16,6 +15,7 @@
 .App-link {
   color: #61dafb;
 }
+
 
 .App-questionnaire {
   max-width: 600px;
@@ -54,6 +54,7 @@
   border-color: transparent #bbb;
   padding:5px;
 }
+
 
 
 

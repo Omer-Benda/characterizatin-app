@@ -3,6 +3,9 @@ import React from 'react'
 import SingelQuestion from './SingelQuestion'
 import {Button} from '@mui/material';
 import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
+import TopOfAplication from './TopOfAplication';
+import styled from '@emotion/styled';
+
 
 
 export default function Question(props) {
@@ -89,8 +92,10 @@ export default function Question(props) {
 }
   return (
     <>
+   
 {props.pageNum=='first' ? <div>
-<img className="App-logo" src="logo.png" />
+<TopOfAplication label='שאלות היכרות'/>
+<img className="App-logo" src="logo.png" style={{marginTop:'45px'}}  />
 <SingelQuestion q=":מינך" f="אחר" s="אישה" t="גבר"/>
 <SingelQuestion q=":איזור מגורים" f=" דרום" s="מרכז" t="צפון"/>
 <SingelQuestion q="?באיזה יבשת תכננת לטייל" f="דרום אמריקה" s="מרכז אמריקה" t="מזרח" fo="לא החלטתי"/>
@@ -105,10 +110,11 @@ export default function Question(props) {
 
 {props.pageNum=='second' ? <div>
   <div>
+    
   <Button onClick={()=>{props.continueClicked('firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250' }}/> </Button>
 
   </div>
-<img className="App-logo" src="logo.png" />
+<img className="App-logo" src="logo.png" style={{marginTop:'45px'}} />
 
 <h3 style={{color:'black', fontSize:'20px', 
 textAlign:'center', marginLeft:'auto', marginRight:'auto' } }> {props.name}, עוד כמה שאלות וסיימנו <br /> </h3>

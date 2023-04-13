@@ -1,3 +1,4 @@
+import { Box, Paper } from '@mui/material';
 import React from 'react'
 
 export default function PersonaTemplate(props) {
@@ -10,9 +11,8 @@ export default function PersonaTemplate(props) {
 
   return (
     <>
-
 <img className="persona-logo" src={props.pageNum+'.jpg'} />
-
+<Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
   <h3 style={{color:'black', fontSize:'20px', 
   textAlign:'center', marginLeft:'auto', marginRight:'auto', marginTop:'80px' } }>  {props.name} , שמחים  לעדכן כי תהליך האפיון הסתיים<br /> </h3>
 <h5 style={
@@ -21,7 +21,7 @@ export default function PersonaTemplate(props) {
    marginRight:'auto'}}> 
 אין שאלה, אתה {PersonaArr[props.pageNum]} אמיתי <br /> עכשיו אחרי שהכרנו, תוכל להתחיל לתכנן את הטיול שלך בתחת, אנחנו כבר נדאג לעדכן ולשתף איתך את ההמלצות הטובות ביותר שמתאימות בדיוק לך<br /> 
 </h5>
-
+</Box>
     </>
   )
 }

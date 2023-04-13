@@ -1,6 +1,6 @@
 
 import React from 'react'
-import {Button} from '@mui/material';
+import {Button, Paper} from '@mui/material';
 import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 import PersonaTemplate from './PersonaTemplate';
 
@@ -23,6 +23,7 @@ export default function Persona(props) {
   </div> : ""}
   
   <Button onClick={() => {props.continueClicked('userProfile')}} variant="contained">אני רוצה להתחיל</Button>
+   
     </>
   )
 }

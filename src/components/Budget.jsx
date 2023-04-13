@@ -1,6 +1,6 @@
 
-import { Box, Slider, Stack } from '@mui/material'
-import React from 'react'
+import { Box, Slider, Stack, Table } from '@mui/material'
+import React, { useState } from 'react'
 import Navigation from './Navigation'
 import TopOfAplication from './TopOfAplication'
 import Card from '@mui/material/Card';
@@ -9,8 +9,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
+import DataTable from './DataTable';
 
 export default function Budget(props) {
+
 
   const PrettoSlider = styled(Slider)({
     color: '#52af77',
@@ -35,8 +37,8 @@ export default function Budget(props) {
       fontSize: 12,
       background: 'unset',
       padding: 0,
-      width: 32,
-      height: 32,
+      width: 38,
+      height: 38,
       borderRadius: '50% 50% 50% 0',
       backgroundColor: '#52af77',
       transformOrigin: 'bottom left',
@@ -51,36 +53,46 @@ export default function Budget(props) {
     },
   });
   
+  const [value, setValue] = useState(25000);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  }
   return (
     <>
       <TopOfAplication label='מעקב הוצאות'  />
       
-      <Card sx={{ minWidth: 275  }} >
+      <Card sx={{ minWidth: 275  }} style={{marginTop:'60px'}} >
       <CardContent >
         <Typography variant="h6" component="div" gutterBottom  >
-          תקציב אישי 
+        <b>  תקציב אישי </b>
         </Typography>
         <Box sx={{ width: 270 }}>
             <Box sx={{ m: 1 }} />
             <Typography gutterBottom>הגדר את תקציב הטיול שלך</Typography>
-            <PrettoSlider
+            <PrettoSlider 
+              step={500}
+              marks
+              min={5000}
+              max={70000}
             valueLabelDisplay="auto"
             aria-label="pretto slider"
-            defaultValue={20}
+            defaultValue={value}
+            value={value}
+            onChange={handleChange}
           />
           <Box sx={{ m: 3 }} />
         </Box>
         <Typography variant="body2">
-          well meaning and kindly.
+          <h3>יש לי <b>{value}</b> שקל לבזבז בטיול</h3>
           <br />
-          {'"a benevolent smile"'}
+          {"אנחנו כאן כדי לעזור לך לנהל את התקציב שלך בצורה הטובה ביותר"}
         </Typography>
       </CardContent>
       <CardActions >
       <Button style={{marginLeft:'auto', marginRight:'auto'}} size="small" onClick={() => {props.continueClicked('')}} variant="contained">בוא נצלול פנימה</Button>
-
       </CardActions>
     </Card>
+    <DataTable/>
 
       <Navigation navTo={(page)=>props.continueClicked(page)}/>
     </>

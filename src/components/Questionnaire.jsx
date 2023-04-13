@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
-import { Button, Link } from '@mui/material';
+import { Box, Button, Link, Paper } from '@mui/material';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import TopOfAplication from './TopOfAplication';
+import styled from '@emotion/styled';
+
 
 
 export default function Questionnaire(props) {
@@ -8,8 +11,10 @@ export default function Questionnaire(props) {
   return (
     <>
     <div className='App-questionnaire'>
-    <img className="App-logo" src="logo.png" style={{ maxWidth: '600px'}} />
+      <TopOfAplication label='השלמת פרופיל אישי'/>
+    <img className="App-logo" src="logo.png" style={{maxWidth:'250px', marginLeft:'auto', marginRight:'auto'}} />
     <br />
+    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} gutterBottom>
 <h3 style={{color:'black', fontSize:'20px', 
 textAlign:'center', marginLeft:'auto', marginRight:'auto' } }> 
 אהלן {props.name}<br /> שמחים שבחרת להצטרף אלינו</h3>
@@ -18,11 +23,11 @@ textAlign:'center', marginLeft:'auto', marginRight:'auto' } }>
 textAlign:'center', marginLeft:'auto', marginRight:'auto'}}> לפנייך שאלות שיעזרו לנו 
 להכיר אותך טוב יותר, וכך להתאים עבורך את ההמלצות המדוייקות עבורך </h5>
 
-      
-    </div>
-    <Button onClick={() => {props.continueClicked() }} variant="contained">לחץ להתחלה</Button>
- 
+<Button onClick={() => {props.continueClicked() }} variant="contained">לחץ להתחלה</Button>
 
+</Box>
+      
+ </div>
     </>
   )
 }
