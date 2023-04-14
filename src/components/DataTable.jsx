@@ -7,6 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { Button } from '@mui/material';
 
 const columns = [
   { id: 'category', label: 'קטגוריה', minWidth: 30 },
@@ -41,14 +44,35 @@ function createData(category, title, price, amount) {
 }
 
 const rows = [
-  createData('לינה', 'IN', 13, 3),
-  createData('לינה', 'CN', 14, 9),
-  createData('אטרקציה', 'IT', 6, 3),
-  createData('אטרקציה', 'US', 3, 9),
-  createData('מזון', 'CA', 3, 9),
+  createData('לינה', 'קאסה דיוויד', 13, 31),
+  createData('לינה', 'לאונרדו', 14, 9),
+  createData('אטרקציה', 'קייקים', 6, 3),
+  createData('אטרקציה', 'גלישה', 23, 19),
+  createData('מזון', 'מקדונלדס', 3, 91),
 ];
 
-export default function DataTable() {
+
+
+export default function DataTable(props) {
+   const [count, setCount] = useState(0)                                 
+
+  useEffect(()=>{
+      console.log(props.allExpenes)
+        {props.allExpenes.map((Expenes)=>{
+          setExpensesInApp([...expensesInApp,createData(Expenes.KindOfExpenses,Expenes.ExpensesTitle,Expenes.PricePerOne,Expenes.NumberOfRepeatExpenses)])
+         })
+  
+        }
+  },[])
+
+  const [expensesInApp, setExpensesInApp] = useState([createData('מזון', 'מקדונלדס', 3, 91)]);
+                                
+      const giveData=()=>{
+        console.log(props.allExpenes)
+        setCount(prev=>prev+1)
+
+      }
+      
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -82,8 +106,8 @@ export default function DataTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {expensesInApp
+             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
@@ -113,6 +137,7 @@ export default function DataTable() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       /> */}
+      <Button onClick={giveData}>בדיקת שפיות </Button>
     </Paper>
   );
 }

@@ -14,7 +14,7 @@ export default function Questionnaire(props) {
       <TopOfAplication label='השלמת פרופיל אישי'/>
     <img className="App-logo" src="logo.png" style={{maxWidth:'250px', marginLeft:'auto', marginRight:'auto'}} />
     <br />
-    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} gutterBottom>
+    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} >
 <h3 style={{color:'black', fontSize:'20px', 
 textAlign:'center', marginLeft:'auto', marginRight:'auto' } }> 
 אהלן {props.name}<br /> שמחים שבחרת להצטרף אלינו</h3>

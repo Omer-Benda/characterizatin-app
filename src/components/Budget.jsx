@@ -1,6 +1,6 @@
 
 import { Box, Slider, Stack, Table } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navigation from './Navigation'
 import TopOfAplication from './TopOfAplication'
 import Card from '@mui/material/Card';
@@ -12,7 +12,6 @@ import styled from '@emotion/styled';
 import DataTable from './DataTable';
 
 export default function Budget(props) {
-
 
   const PrettoSlider = styled(Slider)({
     color: '#52af77',
@@ -92,7 +91,7 @@ export default function Budget(props) {
       <Button style={{marginLeft:'auto', marginRight:'auto'}} size="small" onClick={() => {props.continueClicked('')}} variant="contained">בוא נצלול פנימה</Button>
       </CardActions>
     </Card>
-    <DataTable/>
+    <DataTable allExpenes={props.allExpenes}/>
 
       <Navigation navTo={(page)=>props.continueClicked(page)}/>
     </>
