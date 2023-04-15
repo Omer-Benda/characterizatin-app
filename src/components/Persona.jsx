@@ -22,7 +22,7 @@ export default function Persona(props) {
  <PersonaTemplate name={props.name} pageNum='chill'/>
   </div> : ""}
   
-  <Button onClick={() => {props.continueClicked('userProfile')}} variant="contained">אני רוצה להתחיל</Button>
+  <Button style={{backgroundColor:'#598e89'}} onClick={() => {props.continueClicked('userProfile')}} variant="contained">אני רוצה להתחיל</Button>
    
     </>
   )

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
+import { FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup } from '@mui/material'
 import { useRef } from 'react';
 
 export default function SingelQuestion(props) {
@@ -13,10 +13,10 @@ export default function SingelQuestion(props) {
   // }
   return (
     <div>
-  <div style={{border:'solid black 2px',padding:'5px', margin:'25px',backgroundColor:'#eeeeee'}}>
-  <FormControl style={{color:'black'}}>
+  <Paper style={{border:'solid black 1px',padding:'5px', margin:'25px',backgroundColor:'#eeeeee',padding:'15px'}}>
+  <FormControl style={{color:'black', direction:'rtl', right:0}}>
   <FormLabel id="demo-radio-buttons-group-label"><b>{props.q}</b></FormLabel>
-  <RadioGroup style={{ extAlign:'center', marginLeft:'auto', marginRight:'auto'}}
+  <RadioGroup style={{marginLeft:'auto', marginRight:'auto'}}
   // row
     aria-labelledby="demo-radio-buttons-group-label"
     defaultValue="1"
@@ -35,7 +35,7 @@ export default function SingelQuestion(props) {
 
   </RadioGroup>
   </FormControl>
-  </div>
+  </Paper>
     </div>
   )
 }

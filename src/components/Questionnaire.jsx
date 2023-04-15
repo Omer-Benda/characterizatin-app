@@ -23,7 +23,7 @@ textAlign:'center', marginLeft:'auto', marginRight:'auto' } }>
 textAlign:'center', marginLeft:'auto', marginRight:'auto'}}> לפנייך שאלות שיעזרו לנו 
 להכיר אותך טוב יותר, וכך להתאים עבורך את ההמלצות המדוייקות עבורך </h5>
 
-<Button onClick={() => {props.continueClicked() }} variant="contained">לחץ להתחלה</Button>
+<Button style={{backgroundColor:'#598e89'}} onClick={() => {props.continueClicked() }} variant="contained">לחץ להתחלה</Button>
 
 </Box>
       

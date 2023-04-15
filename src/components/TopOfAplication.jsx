@@ -20,7 +20,7 @@ function TopOfAplication(props) {
       <Container maxWidth="xs" > 
         <Toolbar >
               <IconButton style={{marginRight:'auto', marginLeft:'auto'}} >
-                <Avatar alt="טיול אחרי צבא" src="logo.png" />
+                {/* <Avatar alt="טיול אחרי צבא"  src="logo.png" /> */}
               </IconButton>
                 <Typography
               sx={{
@@ -37,9 +37,9 @@ function TopOfAplication(props) {
                }}
               >
                </Typography>
-          <span style={{marginLeft:'35px', marginRight:'35px'}} >{props.label}</span>
+              <span style={{marginLeft:'35px', marginRight:'35px'}} >{props.label}</span>
               <IconButton style={{marginRight:'auto', marginLeft:'auto'}}  sx={{ p: 0 }}>
-                <Avatar alt="תמונת פרופיל" src={'.jpg'} variant="rounded" />
+                <Avatar src="/broken-image.jpg" variant="rounded" style={{borderRadius: '40%'}} sx={{mt: 1}} />
               </IconButton>
         </Toolbar>
       </Container>

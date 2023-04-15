@@ -7,6 +7,7 @@ import Persona from './components/Persona';
 import PersonaTemplate from './components/PersonaTemplate';
 import UserProfile from './components/UserProfile';
 import Budget from './components/Budget';
+import NewExpense from './components/NewExpense';
 
 function App() {
   const [page, setPage] = useState('');// למחוק אחרי השילוב עם עטר
@@ -105,6 +106,8 @@ useEffect(()=>{
 
 {page === 'budget' && <Budget allExpenes={expensesInApp} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 {page === 'profile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
+
+{page === 'NewExpense' && <NewExpense continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 
       </div>
     </div>

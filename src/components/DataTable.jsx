@@ -10,6 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Button } from '@mui/material';
+import { PostAdd } from '@mui/icons-material';
+import NewExpense from './NewExpense';
 
 const columns = [
   { id: 'category', label: 'קטגוריה', minWidth: 30 },
@@ -54,23 +56,22 @@ const rows = [
 
 
 export default function DataTable(props) {
-   const [count, setCount] = useState(0)                                 
+   const expensesFromDB =[];                          
+   const [expensesInApp, setExpensesInApp] = useState([createData('₪', '₪', 0, 0)]);
 
-  useEffect(()=>{
-      console.log(props.allExpenes)
-        {props.allExpenes.map((Expenes)=>{
-          setExpensesInApp([...expensesInApp,createData(Expenes.KindOfExpenses,Expenes.ExpensesTitle,Expenes.PricePerOne,Expenes.NumberOfRepeatExpenses)])
-         })
-  
-        }
+  useEffect(()=>{/// בכניסה ראשונה לקומפוננטה של תקציב, ריצה על כל מערך ההוצאות של המשתמש כפי שהתקבל בכניסה לאפליקציה והועבר בפרופסים בין הקומפוננטות ומיפוי שלהם לפי פורמט של שורה
+    for (let index = 0; index < props.allExpenes.length; index++) {
+      expensesFromDB[index]=createData(props.allExpenes[index].KindOfExpenses,props.allExpenes[index].ExpensesTitle,props.allExpenes[index].PricePerOne,props.allExpenes[index].NumberOfRepeatExpenses)
+    }
+    if (expensesFromDB.length== props.allExpenes.length) {
+      setExpensesInApp(expensesFromDB)// הדרך שלי לשלוט ברענון הדאטה רק לאחר שהמיפוי הסתיים - מערכים באותו הגודל
+    }
+   
   },[])
 
-  const [expensesInApp, setExpensesInApp] = useState([createData('מזון', 'מקדונלדס', 3, 91)]);
                                 
-      const giveData=()=>{
-        console.log(props.allExpenes)
-        setCount(prev=>prev+1)
-
+      const addExpens=()=>{
+      
       }
       
   const [page, setPage] = React.useState(0);
@@ -86,21 +87,21 @@ export default function DataTable(props) {
   // };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }} style={{direction:'rtl',height:'100%', width: '100%' , margin:'15px', marginBottom:'30px'}}>
-      <h4 style={{ color:'white',backgroundColor:'#598e89', padding:'5px', margin:'15px', borderStyle:'double'}}>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }} style={{direction:'rtl',height:'100%', width: '100%' , margin:'15px', marginBottom:'30px',backgroundColor:'#eeeeee'}}>
+      <h4 style={{ color:'black',backgroundColor:'#e0e0e0', padding:'5px', margin:'15px',borderRadius: '5%'}}>
   {"רשימת ההוצאות שלי"}
 </h4>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
+      <TableContainer sx={{ maxHeight: 440 }} >
+        <Table stickyHeader aria-label="sticky table" >
+          <TableHead >
             <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{ minWidth: column.minWidth , backgroundColor:'#e0e0e0'}}
                 >
-                 <u><b>{column.label}</b></u>
+                 <b>{column.label}</b>
                 </TableCell>
               ))}
             </TableRow>
@@ -117,7 +118,7 @@ export default function DataTable(props) {
                         <TableCell key={column.id} align={column.align}>
                           {column.format && typeof value === 'number'
                             ? column.format(value)
-                            : value}
+                            : value }
                         </TableCell>
                       );
                     })}
@@ -137,7 +138,8 @@ export default function DataTable(props) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       /> */}
-      <Button onClick={giveData}>בדיקת שפיות </Button>
+      
+      <Button style={{color:'black'}}onClick={() => {props.navTo("NewExpense")}}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button>
     </Paper>
   );
 }

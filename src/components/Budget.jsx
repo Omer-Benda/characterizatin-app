@@ -60,7 +60,7 @@ export default function Budget(props) {
     <>
       <TopOfAplication label='מעקב הוצאות'  />
       
-      <Card sx={{ minWidth: 275  }} style={{marginTop:'60px'}} >
+      <Card sx={{ minWidth: 275  }} style={{marginTop:'60px', backgroundColor:'#eeeeee'}} >
       <CardContent >
         <Typography variant="h6" component="div" gutterBottom  >
         <b>  תקציב אישי </b>
@@ -88,10 +88,10 @@ export default function Budget(props) {
         </Typography>
       </CardContent>
       <CardActions >
-      <Button style={{marginLeft:'auto', marginRight:'auto'}} size="small" onClick={() => {props.continueClicked('')}} variant="contained">בוא נצלול פנימה</Button>
+      <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={() => {props.continueClicked('')}} variant="contained">בוא נצלול פנימה</Button>
       </CardActions>
     </Card>
-    <DataTable allExpenes={props.allExpenes}/>
+    <DataTable allExpenes={props.allExpenes} navTo={(page)=>props.continueClicked(page)}/>
 
       <Navigation navTo={(page)=>props.continueClicked(page)}/>
     </>
