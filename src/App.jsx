@@ -15,6 +15,8 @@ function App() {
   const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
   const [expensesInApp, setExpensesInApp] = useState('');/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
 
+  const [numOfExpense, setNumOfExpense] = useState({KindOfExpenses:'סוג ההוצאה',ExpensesTitle:'תיאור קצר', PricePerOne:'מחיר בש"ח ליחידה', NumberOfRepeatExpenses:'מספר פעמים', ExKey:0});
+
 useEffect(()=>{
     const apiUrl='http://localhost:65095/api/users/3'
     // const apiUrl='http://localhost:58583/api/users/1'
@@ -104,10 +106,13 @@ useEffect(()=>{
 
 {page === 'userProfile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 
-{page === 'budget' && <Budget allExpenes={expensesInApp} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
+{page === 'budget' && <Budget allExpenes={expensesInApp} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}} navToChange={(exNum) => {setNumOfExpense(exNum)}}/>}
 {page === 'profile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 
-{page === 'NewExpense' && <NewExpense continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
+{page === 'NewExpense' && <NewExpense continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}} title={numOfExpense.ExpensesTitle} 
+price={numOfExpense.PricePerOne} amount={numOfExpense.NumberOfRepeatExpenses} ExKey={numOfExpense.ExpensesKey} Ecategory={numOfExpense.KindOfExpenses} />}
+
+{/* {numOfExpense!=0 && <NewExpense numOfExpense={numOfExpense} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>} */}
 
       </div>
     </div>

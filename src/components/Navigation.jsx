@@ -57,7 +57,7 @@ const handleChange = (event, newValue) => {
             icon={<TravelExplore />}
           />
 
-          <BottomNavigationAction label="בית" value="Home" icon={<Home />} />
+          <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {props.navTo("profile")}} />
         </BottomNavigation>
     
         </Paper>

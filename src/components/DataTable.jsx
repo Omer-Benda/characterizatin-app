@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Button } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import { PostAdd } from '@mui/icons-material';
 import NewExpense from './NewExpense';
 
@@ -40,9 +40,9 @@ const columns = [
   },
 ];
 
-function createData(category, title, price, amount) {
+function createData(category, title, price, amount, code) {
   const sum = price * amount;
-  return { category, title, price, amount, sum };
+  return { category, title, price, amount, sum, code };
 }
 
 const rows = [
@@ -56,12 +56,14 @@ const rows = [
 
 
 export default function DataTable(props) {
-   const expensesFromDB =[];                          
+   const expensesFromDB =[];
    const [expensesInApp, setExpensesInApp] = useState([createData('₪', '₪', 0, 0)]);
+
+   const [expensesToChange, setExpensesToChange] = React.useState();/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
 
   useEffect(()=>{/// בכניסה ראשונה לקומפוננטה של תקציב, ריצה על כל מערך ההוצאות של המשתמש כפי שהתקבל בכניסה לאפליקציה והועבר בפרופסים בין הקומפוננטות ומיפוי שלהם לפי פורמט של שורה
     for (let index = 0; index < props.allExpenes.length; index++) {
-      expensesFromDB[index]=createData(props.allExpenes[index].KindOfExpenses,props.allExpenes[index].ExpensesTitle,props.allExpenes[index].PricePerOne,props.allExpenes[index].NumberOfRepeatExpenses)
+      expensesFromDB[index]=createData(props.allExpenes[index].KindOfExpenses,props.allExpenes[index].ExpensesTitle,props.allExpenes[index].PricePerOne,props.allExpenes[index].NumberOfRepeatExpenses,props.allExpenes[index].ExpensesKey)
     }
     if (expensesFromDB.length== props.allExpenes.length) {
       setExpensesInApp(expensesFromDB)// הדרך שלי לשלוט ברענון הדאטה רק לאחר שהמיפוי הסתיים - מערכים באותו הגודל
@@ -70,10 +72,60 @@ export default function DataTable(props) {
   },[])
 
                                 
-      const addExpens=()=>{
-      
+      const deleteOrUpdateExpens=(ketToGET)=>{
+      alert(ketToGET);
+     
+  const apiUrl='http://localhost:65095/api/expenses/'
+  fetch(apiUrl+ketToGET, 
+     {
+    method: 'GET',
+    headers: new Headers({
+        'Content-Type':'application/json; charset=UTF-8',
+        'Accept':'application/json; charset=UTF-8',
+        }),
+    
+       })
+        .then(response => {
+         console.log('response= ',response);
+         console.log('response statuse=', response.status);
+         console.log('response.ok=', response.ok)
+        return response.json()
+        })
+        .then(
+          (result)=>{
+            console.log("fetch expense user by key=", result);
+            // setExpensesToChange(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
+             {props.navToChange(result)}
+            console.log('UserEmail', result.UserEmail)
+            console.log('ExpensesTitle=', result.ExpensesTitle)
+            console.log('ExpensesKey=', result.ExpensesKey)
+          },
+        (error) => {
+        console.log("err post=", error);
+        });     
+
+        {props.navTo("NewExpense")}
+      // const apiUrl='http://localhost:65095/api/expenses/delete/'
+      // fetch(apiUrl+codeTOdelete , 
+      //    {
+      //   method: 'Delete',
+      //   headers: new Headers({
+      //       'Content-Type':'application/json; charset=UTF-8',
+      //       'Accept':'application/json; charset=UTF-8',
+      //       }),
+      //      })
+      //       .then(response => {
+      //        if (response.ok) {
+      //         console.log('response.ok=', response.ok)
+      //         console.log('update=', response.ok)
+      //        }
+      //         },
+      //       (error) => {
+      //       console.log("err post=", error);
+      //       });     
       }
       
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -111,7 +163,7 @@ export default function DataTable(props) {
              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>deleteOrUpdateExpens(row.code)}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
@@ -140,6 +192,7 @@ export default function DataTable(props) {
       /> */}
       
       <Button style={{color:'black'}}onClick={() => {props.navTo("NewExpense")}}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button>
+      {/* <Button style={{color:'black'}}onClick={()=>putOrDeleteExpose(expensesInApp)}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button> */}
     </Paper>
   );
 }

@@ -91,7 +91,7 @@ export default function Budget(props) {
       <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={() => {props.continueClicked('')}} variant="contained">בוא נצלול פנימה</Button>
       </CardActions>
     </Card>
-    <DataTable allExpenes={props.allExpenes} navTo={(page)=>props.continueClicked(page)}/>
+    <DataTable allExpenes={props.allExpenes} navTo={(page)=>props.continueClicked(page)} navToChange={(exNum)=>props.navToChange(exNum) }/>
 
       <Navigation navTo={(page)=>props.continueClicked(page)}/>
     </>
