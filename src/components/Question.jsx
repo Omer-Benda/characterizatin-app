@@ -5,16 +5,21 @@ import {Button} from '@mui/material';
 import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 import TopOfAplication from './TopOfAplication';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Question(props) {
- 
+  const nav=useNavigate();
+
   const onLoad=()=>{/// זמני , ישונה אחרי שנבנה את קלקולייט- ניתן לייצר מהקריאה אלמנט ורק לשלוח את הערך
-  const randomNumber = Math.ceil((Math.random() * 100));
-  
+  if (props.pageNum=='first') {
+    nav('/secondQues')
+  }
+  else{
+    const randomNumber = Math.ceil((Math.random() * 100));
   if (randomNumber <=33) {
-    const apiUrl='http://localhost:65095/api/users/3'
+    const apiUrl='http://localhost:65095/api/users/putid/6'
     // const apiUrl='http://localhost:58583/api/users/1'
 
     fetch(apiUrl, 
@@ -36,10 +41,11 @@ export default function Question(props) {
     console.log("err post=", error);
     });     
   
-    return'PersonaM'
+    // return'PersonaM'
+    nav('/PersonaM')
   }
   if (randomNumber <=66) {
-    const apiUrl='http://localhost:65095/api/users/3'
+    const apiUrl='http://localhost:65095/api/users/putid/6'
     // const apiUrl='http://localhost:58583/api/users/1'
 
     fetch(apiUrl, 
@@ -61,11 +67,11 @@ export default function Question(props) {
     console.log("err post=", error);
     });     
   
-    return 'PersonaB'
-
+    // return 'PersonaB'
+    nav('/PersonaB')
 
   } else {
-    const apiUrl='http://localhost:65095/api/users/3'
+    const apiUrl='http://localhost:65095/api/users/putid/6'
     // const apiUrl='http://localhost:58583/api/users/1'
     fetch(apiUrl, 
       {
@@ -86,9 +92,12 @@ export default function Question(props) {
     console.log("err post=", error);
     });     
   
-    return 'PersonaC'
+    nav('/PersonaC')
+
+    // return 'PersonaC'
 
   }
+}
 }
   return (
     <>
@@ -111,7 +120,8 @@ export default function Question(props) {
 {props.pageNum=='second' ? <div>
   <div>
     
-  <Button onClick={()=>{props.continueClicked('firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250' }}/> </Button>
+  {/* <Button onClick={()=>{props.continueClicked('firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250' }}/> </Button> */}
+  <Button onClick={()=>{nav('/firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250' }}/> </Button>
 
   </div>
 <img className="App-logo" src="logo.png" style={{marginTop:'45px'}} />
@@ -137,7 +147,8 @@ textAlign:'center', marginLeft:'auto', marginRight:'auto' } }> {props.name}, ע�
 
     </div>:"" }
 
-    <Button style={{backgroundColor:'#598e89'}} onClick={() => {props.continueClicked(onLoad) }} variant="contained">{props.pageNum=='first'? 'הבא': 'לחץ לסיום'}</Button>
+    {/* <Button style={{backgroundColor:'#598e89'}} onClick={() => {props.continueClicked(onLoad) }} variant="contained">{props.pageNum=='first'? 'הבא': 'לחץ לסיום'}</Button> */}
+    <Button style={{backgroundColor:'#598e89'}} onClick={onLoad} variant="contained">{props.pageNum=='first'? 'הבא': 'לחץ לסיום'}</Button>
 
     </>
   )

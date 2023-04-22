@@ -8,6 +8,7 @@ import PersonaTemplate from './components/PersonaTemplate';
 import UserProfile from './components/UserProfile';
 import Budget from './components/Budget';
 import NewExpense from './components/NewExpense';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const [page, setPage] = useState('');// למחוק אחרי השילוב עם עטר
@@ -15,10 +16,10 @@ function App() {
   const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
   const [expensesInApp, setExpensesInApp] = useState('');/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
 
-  const [numOfExpense, setNumOfExpense] = useState({KindOfExpenses:'סוג ההוצאה',ExpensesTitle:'תיאור קצר', PricePerOne:'מחיר בש"ח ליחידה', NumberOfRepeatExpenses:'מספר פעמים', ExKey:0});
+  // const [numOfExpense, setNumOfExpense] = useState({KindOfExpenses:'סוג ההוצאה',ExpensesTitle:'תיאור קצר', PricePerOne:'מחיר בש"ח ליחידה', NumberOfRepeatExpenses:'מספר פעמים', ExKey:0});
 
 useEffect(()=>{
-    const apiUrl='http://localhost:65095/api/users/3'
+    const apiUrl='http://localhost:65095/api/users/getid/6'
     // const apiUrl='http://localhost:58583/api/users/1'
 
     fetch(apiUrl, 
@@ -95,8 +96,29 @@ useEffect(()=>{
     <div className="App" >
       <div className="App-characterizatin">
 
+
+<Routes>
+  <Route path="/" element={<Questionnaire  name={userInApp.UserFirstName}/>}/> 
+  <Route path="firstQues" element={<Question pageNum='first'/>}/> 
+  <Route path="secondQues" element={<Question name={userInApp.UserFirstName} pageNum='second'/>}/> 
+  <Route path="PersonaM" element={<Persona name={userInApp.UserLastName} pageNum='mucillar'/>}/> 
+  <Route path="PersonaB" element={<Persona name={userInApp.UserFirstName} pageNum='balyanim'/>}/> 
+  <Route path="PersonaC" element={<Persona name={userInApp.UserFirstName} pageNum='chill'/>}/> 
+  <Route path="userProfile" element={<UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail}/>}/> 
+  <Route path="budget" element={<Budget allExpenes={expensesInApp}/>}/> 
+  {/* <Route path="budget" element={<Budget allExpenes={expensesInApp} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}} navToChange={(exNum) => {setNumOfExpense(exNum)}}/>}/>  */}
+  <Route path="profile" element={<UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType}/>}/> 
+  {/* <Route path="profile" element={<UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}/>  */}
+  {/* <Route path="NewExpense" element={<NewExpense title={numOfExpense.ExpensesTitle} price={numOfExpense.PricePerOne} amount={numOfExpense.NumberOfRepeatExpenses} ExKey={numOfExpense.ExpensesKey} Ecategory={numOfExpense.KindOfExpenses} />}/>  */}
+  <Route path="NewExpense" element={<NewExpense />}/> 
+</Routes>
+
+
+
+
 {/* <Questionnaire name="עומר"/> */}
-{page === 'Questionnaire' && <Questionnaire  name={userInApp.UserFirstName} continueClicked={() => { setPage('firstQues') } } />}
+
+{/* {page === 'Questionnaire' && <Questionnaire  name={userInApp.UserFirstName} continueClicked={() => { setPage('firstQues') } } />}
 {page === 'firstQues' && <Question pageNum='first' continueClicked={() => { setPage('secondQues') }} />}
 {page === 'secondQues' && <Question name={userInApp.UserFirstName} pageNum='second' continueClicked={(navigaitionTo) => { setPage(navigaitionTo) }}/>}
 
@@ -110,9 +132,9 @@ useEffect(()=>{
 {page === 'profile' && <UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}
 
 {page === 'NewExpense' && <NewExpense continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}} title={numOfExpense.ExpensesTitle} 
-price={numOfExpense.PricePerOne} amount={numOfExpense.NumberOfRepeatExpenses} ExKey={numOfExpense.ExpensesKey} Ecategory={numOfExpense.KindOfExpenses} />}
+price={numOfExpense.PricePerOne} amount={numOfExpense.NumberOfRepeatExpenses} ExKey={numOfExpense.ExpensesKey} Ecategory={numOfExpense.KindOfExpenses} />} */}
 
-{/* {numOfExpense!=0 && <NewExpense numOfExpense={numOfExpense} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>} */}
+{/* <Questionnaire name="עומר"/> */}
 
       </div>
     </div>

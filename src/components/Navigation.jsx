@@ -28,7 +28,8 @@ export default function Navigation(props) {
   //  const navTo =()=>{
   //    alert('./Budget')
   //  }
-const [value, setValue] = useState('profile');
+  const nav=useNavigate();
+const [value, setValue] = useState(props.pagNav);
 const handleChange = (event, newValue) => {
   setValue(newValue);
 };
@@ -41,14 +42,16 @@ const handleChange = (event, newValue) => {
             label="פרופיל"
             value="profile"
             icon={<AccountCircle />}
-            onClick={() => {props.navTo("profile")}}
+            // onClick={() => {props.navTo("profile")}}
+            onClick={() => {nav('/profile')}}
           />
           <BottomNavigationAction
             label="ניהול תקציב"
             value="budget"
             icon={<CurrencyExchange />}
             //  onClick={navTo}
-             onClick={() => {props.navTo("budget")}}
+            //  onClick={() => {props.navTo("budget")}}
+             onClick={() => {nav('/budget')}}
           />
           
           <BottomNavigationAction
@@ -57,7 +60,8 @@ const handleChange = (event, newValue) => {
             icon={<TravelExplore />}
           />
 
-          <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {props.navTo("profile")}} />
+          {/* <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {props.navTo("profile")}} /> */}
+          <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {nav('/profile')}} />
         </BottomNavigation>
     
         </Paper>

@@ -12,28 +12,29 @@ import { useState } from 'react';
 import { Alert, Button } from '@mui/material';
 import { PostAdd } from '@mui/icons-material';
 import NewExpense from './NewExpense';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
-  { id: 'category', label: 'קטגוריה', minWidth: 30 },
-  { id: 'title', label: 'כותרת', minWidth: 40 },
+  { id: 'category', label: 'קטגוריה', minWidth: 5 },
+  { id: 'title', label: 'כותרת', minWidth: 5 },
   {
     id: 'price',
     label: 'מחיר',
-    minWidth: 40,
+    minWidth: 5,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'amount',
     label: 'כמות',
-    minWidth: 40,
+    minWidth: 5,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'sum',
     label: 'סה"כ',
-    minWidth: 40,
+    minWidth: 5,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
     // format: (value) => value.toFixed(2),
@@ -53,15 +54,19 @@ const rows = [
   createData('מזון', 'מקדונלדס', 3, 91),
 ];
 
-
-
 export default function DataTable(props) {
+
+  const [expenses, setExpenses] = useState('');/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
+
+  const nav=useNavigate();
+
    const expensesFromDB =[];
    const [expensesInApp, setExpensesInApp] = useState([createData('₪', '₪', 0, 0)]);
 
    const [expensesToChange, setExpensesToChange] = React.useState();/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
 
   useEffect(()=>{/// בכניסה ראשונה לקומפוננטה של תקציב, ריצה על כל מערך ההוצאות של המשתמש כפי שהתקבל בכניסה לאפליקציה והועבר בפרופסים בין הקומפוננטות ומיפוי שלהם לפי פורמט של שורה
+    
     for (let index = 0; index < props.allExpenes.length; index++) {
       expensesFromDB[index]=createData(props.allExpenes[index].KindOfExpenses,props.allExpenes[index].ExpensesTitle,props.allExpenes[index].PricePerOne,props.allExpenes[index].NumberOfRepeatExpenses,props.allExpenes[index].ExpensesKey)
     }
@@ -95,35 +100,18 @@ export default function DataTable(props) {
           (result)=>{
             console.log("fetch expense user by key=", result);
             // setExpensesToChange(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
-             {props.navToChange(result)}
+            //  {props.navToChange(result)}
             console.log('UserEmail', result.UserEmail)
             console.log('ExpensesTitle=', result.ExpensesTitle)
             console.log('ExpensesKey=', result.ExpensesKey)
+            nav('/NewExpense',{state:result})
           },
         (error) => {
         console.log("err post=", error);
         });     
-
-        {props.navTo("NewExpense")}
-      // const apiUrl='http://localhost:65095/api/expenses/delete/'
-      // fetch(apiUrl+codeTOdelete , 
-      //    {
-      //   method: 'Delete',
-      //   headers: new Headers({
-      //       'Content-Type':'application/json; charset=UTF-8',
-      //       'Accept':'application/json; charset=UTF-8',
-      //       }),
-      //      })
-      //       .then(response => {
-      //        if (response.ok) {
-      //         console.log('response.ok=', response.ok)
-      //         console.log('update=', response.ok)
-      //        }
-      //         },
-      //       (error) => {
-      //       console.log("err post=", error);
-      //       });     
-      }
+        // {props.navTo("NewExpense")}
+    
+      }//// להוציא את ההוצאה הספציפית על פי המפתח הוצאה והצגתה בדף של הוצאה חדשה
       
 
   const [page, setPage] = React.useState(0);
@@ -190,9 +178,9 @@ export default function DataTable(props) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       /> */}
-      
-      <Button style={{color:'black'}}onClick={() => {props.navTo("NewExpense")}}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button>
-      {/* <Button style={{color:'black'}}onClick={()=>putOrDeleteExpose(expensesInApp)}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button> */}
+
+      {/* <Button style={{color:'black'}}onClick={() => {props.navTo("NewExpense")}}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button> */}
+      <Button style={{color:'black'}}onClick={() => {nav('/NewExpense')}}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button>
     </Paper>
   );
 }

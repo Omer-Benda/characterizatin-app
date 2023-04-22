@@ -5,13 +5,14 @@ import TextField from '@mui/material/TextField';
 import TopOfAplication from './TopOfAplication';
 import { Button, FormControl, InputLabel, MenuItem, Paper, Select } from '@mui/material';
 import Navigation from './Navigation';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function NewExpense(props) {
   
-  const [category, setCategory] = React.useState('');
-  const [title, setTitle] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [amount, setAmount] = React.useState('');
+  const [category, setCategory] = React.useState('קטגוריה');
+  const [title, setTitle] = React.useState('תיאור קצר');
+  const [price, setPrice] = React.useState('מחיר בש"ח ליחידה');
+  const [amount, setAmount] = React.useState('כמות יחידות');
   const numToDel=props.ExKey;/// החזקת המפתח שעתיד להמחק/ להערך
   // const handleChange = (event) => {
   //   setCategory(event.target.value);
@@ -25,6 +26,19 @@ export default function NewExpense(props) {
   // const handleChange3 = (event) => {
   //   setAmount(event.target.value);
   // };
+  const {state}=useLocation();
+  const nav=useNavigate();
+
+  useEffect(()=>{
+    if (state!=undefined) {
+      const obj=state;
+      console.log(obj.ExpensesKey)
+      setCategory(obj.KindOfExpenses)
+      setTitle(obj.ExpensesTitle)
+      setPrice(obj.PricePerOne)
+      setAmount(obj.NumberOfRepeatExpenses)
+    }
+  },[numToDel])
 
 const postNewExpenseToDB =()=>{
 const apiUrl='http://localhost:65095/api/expenses/post'
@@ -52,7 +66,9 @@ TotalPriceToPay:price*amount
      console.log('response= ',response);
      console.log('response statuse=', response.status);
      console.log('response.ok=', response.ok)
-     props.continueClicked('budget')
+    //  props.continueClicked('budget')
+     nav('/budget')
+
     },
     (error) => {
     console.log("err post=", error);
@@ -60,9 +76,8 @@ TotalPriceToPay:price*amount
   }
 
   const deleteExpense=()=>{
-      
       const apiUrl='http://localhost:65095/api/expenses/delete/'
-      fetch(apiUrl+numToDel, 
+      fetch(apiUrl+state.ExpensesKey, 
          {
         method: 'Delete',
         headers: new Headers({
@@ -73,9 +88,10 @@ TotalPriceToPay:price*amount
             .then(response => {
              if (response.ok) {
               console.log('response.ok=', response.ok)
-              console.log('num of key delete=', numToDel)
+              console.log('num of key delete=', state.ExpensesKey)
              }
-             props.continueClicked('budget')
+             nav('/budget')
+            //  props.continueClicked('budget')
               },
             (error) => {
             console.log("err post=", error);
@@ -91,10 +107,10 @@ PricePerOne: price,
 NumberOfRepeatExpenses: amount,
 ExpensesTitle: title,
 KindOfExpenses: category,// בעקבות בעיה בדאטה בייס כרגע הערך ישאר קבוע, אחרי סידור של נוי ילקח מהסלקט בהתאמה
-ExpensesKey: numToDel,// לא באמת משנה מה ישלח פה
+ExpensesKey: state.ExpensesKey,// לא באמת משנה מה ישלח פה
 TotalPriceToPay:price*amount
 };
-    fetch(apiUrl +numToDel, 
+    fetch(apiUrl +state.ExpensesKey, 
       {
       method: 'PUT',
       body:JSON.stringify(expense),
@@ -108,7 +124,9 @@ TotalPriceToPay:price*amount
      console.log('response= ',response);
      console.log('response statuse=', response.status);
      console.log('response.ok=', response.ok)
-     props.continueClicked('budget')
+    //  props.continueClicked('budget')
+     nav('/budget')
+
     },
     (error) => {
     console.log("err post=", error);
@@ -119,7 +137,7 @@ TotalPriceToPay:price*amount
     <>
     <TopOfAplication label='הוצאה חדשה'/>
     <Paper sx={{maxWidth:'300'}} style={{direction:'rtl', backgroundColor:'#eeeeee'}}>
-    <img className="App-logo" src="expense-logo.png" style={{marginTop:'20px'}} />
+    <img className="App-logo" src="expense-logo.png" style={{marginTop:'5px'}} />
 
     <Box
       component="form"
@@ -131,7 +149,7 @@ TotalPriceToPay:price*amount
     >
       
     <FormControl sx={{ m: 1, width:'25ch' }} size="small">
-      <InputLabel color='success' id="demo-select-small">{props.Ecategory}</InputLabel>
+      <InputLabel color='success' id="demo-select-small">{'סוג ההוצאה'}</InputLabel>
       <Select
         labelId="demo-select-small"
         id="demo-select-small"
@@ -156,9 +174,9 @@ TotalPriceToPay:price*amount
       {/* <TextField type={'number'} label={'מחיר בש"ח ליחידה'} color="success" size="small" onChange={(event)=>{setPrice(event.target.value)}}/> */}
       {/* <TextField type={'number'} label={"מספר פעמים"} color="success" size="small" onChange={(event)=>{setAmount(event.target.value)}}/> */}
 
-      <TextField label={props.title} color="success"  size="small" onChange={(event)=>{setTitle(event.target.value)}} />
-      <TextField type={'number'} label={props.price} color="success" size="small" onChange={(event)=>{setPrice(event.target.value)}}/>
-      <TextField type={'number'} label={props.amount} color="success" size="small" onChange={(event)=>{setAmount(event.target.value)}}/>
+      <TextField label={title} color="success"  size="small" onChange={(event)=>{setTitle(event.target.value)}} />
+      <TextField type={'number'} label={price} color="success" size="small" onChange={(event)=>{setPrice(event.target.value)}}/>
+      <TextField type={'number'} label={amount} color="success" size="small" onChange={(event)=>{setAmount(event.target.value)}}/>
       {/* onClick={() => {props.continueClicked('budget')}} */}
     </Box>
     <Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={postNewExpenseToDB} variant="contained"> הוסף הוצאה</Button>
@@ -166,7 +184,7 @@ TotalPriceToPay:price*amount
     <Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={putExpense} variant="contained">לחץ לעדכון</Button>
 
     </Paper>
-    <Navigation navTo={(page)=>props.continueClicked(page)}/>
+    <Navigation pagNav={'budget'}/>
 
     </>
   )

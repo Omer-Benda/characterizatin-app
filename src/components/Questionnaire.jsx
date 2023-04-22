@@ -3,11 +3,12 @@ import { Box, Button, Link, Paper } from '@mui/material';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import TopOfAplication from './TopOfAplication';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Questionnaire(props) {
-
+const nav=useNavigate();
   return (
     <>
     <div className='App-questionnaire'>
@@ -23,7 +24,8 @@ textAlign:'center', marginLeft:'auto', marginRight:'auto' } }>
 textAlign:'center', marginLeft:'auto', marginRight:'auto'}}> לפנייך שאלות שיעזרו לנו 
 להכיר אותך טוב יותר, וכך להתאים עבורך את ההמלצות המדוייקות עבורך </h5>
 
-<Button style={{backgroundColor:'#598e89'}} onClick={() => {props.continueClicked() }} variant="contained">לחץ להתחלה</Button>
+{/* <Button style={{backgroundColor:'#598e89'}} onClick={() => {props.continueClicked() }} variant="contained">לחץ להתחלה</Button> */}
+<Button style={{backgroundColor:'#598e89'}} onClick={() => {nav('/firstQues')}} variant="contained">לחץ להתחלה</Button>
 
 </Box>
       
