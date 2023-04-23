@@ -135,9 +135,9 @@ export default function UserProfile(props) {
     <>
 <TopOfAplication label='הפרופיל שלי'  />
 
-<img className="App-logo" src="logo.png" style={{marginTop:'45px'}} />
+<img className="App-logo" src="logo.png" style={{marginTop:'5px', width:'120px'}} />
 
-<Box style={{marginBottom:'10px', backgroundColor:'#eeeeee', margin:'25px', padding:'25px',  borderRadius:'5%'}}>
+<Box style={{marginBottom:'5px', backgroundColor:'#eeeeee', margin:'1px', padding:'25px',  borderRadius:'5%'}}>
   <Stack direction={"row"} spacing={5} justifyContent={'space-around'} >
   <StyledBadge
         overlap="circular"
@@ -240,6 +240,7 @@ export default function UserProfile(props) {
           }
         />
       </ListItem>
+      <Divider variant="inset" component="li" />
     </List>
 
 <Navigation pagNav={'profile'} />

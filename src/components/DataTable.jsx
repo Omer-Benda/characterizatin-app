@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Alert, Button } from '@mui/material';
+import { Alert, Box, Button, FormControl, InputLabel, MenuItem, NativeSelect, Pagination, Select } from '@mui/material';
 import { PostAdd } from '@mui/icons-material';
 import NewExpense from './NewExpense';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ const columns = [
   {
     id: 'price',
     label: 'מחיר',
-    minWidth: 5,
+    maxWidth: 5,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
@@ -115,8 +115,14 @@ export default function DataTable(props) {
       
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  // const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setRowsPerPage(event.target.value);
+  };
+  
   // const handleChangePage = (event, newPage) => {
   //   setPage(newPage);
   // };
@@ -127,11 +133,11 @@ export default function DataTable(props) {
   // };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }} style={{direction:'rtl',height:'100%', width: '100%' , margin:'15px', marginBottom:'30px',backgroundColor:'#eeeeee'}}>
+    <Paper sx={{maxWidth:'350px', width: '110%', overflow: 'hidden',direction:'rtl',height:'100%',marginBottom:'30px',backgroundColor:'#eeeeee',margin:'30px'}}>
       <h4 style={{ color:'black',backgroundColor:'#e0e0e0', padding:'5px', margin:'15px',borderRadius: '5%'}}>
   {"רשימת ההוצאות שלי"}
 </h4>
-      <TableContainer sx={{ maxHeight: 440 }} >
+      <TableContainer sx={{ maxHeight: 440, maxWidth:350, width: '100%'}} >
         <Table stickyHeader aria-label="sticky table" >
           <TableHead >
             <TableRow>
@@ -168,19 +174,36 @@ export default function DataTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* {תפריט ניווט למטה של מעבר בין עמודים} */}
-      {/* <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+      {/* {תפריט ניווט למטה של מעבר בין עמודים} */} 
+
+       {/* <TablePagination
+        rowsPerPageOptions={[5,50,100]}
         component="div"
+        // count={parseInt(expensesInApp.length/rowsPerPage)+1}
         count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-      /> */}
+      />  */}
 
+    <NativeSelect
+    defaultValue={rowsPerPage}
+    inputProps={{
+      name: 'PageNum',
+      id: 'uncontrolled-native',
+    }}
+    onChange={handleChange}
+    sx={{ ml: 10, minWidth: 20, borderRadius: '20%', fontSize:'12px'}}
+
+  >
+    <option value={5}>5</option>
+    <option value={10}>10</option>
+    <option value={1000}>הכל</option>
+  </NativeSelect>
+   
       {/* <Button style={{color:'black'}}onClick={() => {props.navTo("NewExpense")}}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button> */}
-      <Button style={{color:'black'}}onClick={() => {nav('/NewExpense')}}> הוצאה חדשה<PostAdd style={{marginRight:'10px'}}/></Button>
+      <Button style={{color:'black'}}onClick={() => {nav('/NewExpense')}}>הוסף הוצאה<PostAdd style={{marginRight:'10px'}}/></Button>
     </Paper>
   );
 }

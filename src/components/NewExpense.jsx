@@ -13,7 +13,9 @@ export default function NewExpense(props) {
   const [title, setTitle] = React.useState('תיאור קצר');
   const [price, setPrice] = React.useState('מחיר בש"ח ליחידה');
   const [amount, setAmount] = React.useState('כמות יחידות');
-  const numToDel=props.ExKey;/// החזקת המפתח שעתיד להמחק/ להערך
+  const numToDel=0;/// החזקת המפתח שעתיד להמחק/ להערך
+  const [key,setKey] = React.useState(0);
+
   // const handleChange = (event) => {
   //   setCategory(event.target.value);
   // };
@@ -33,6 +35,7 @@ export default function NewExpense(props) {
     if (state!=undefined) {
       const obj=state;
       console.log(obj.ExpensesKey)
+      setKey(obj.ExpensesKey)
       setCategory(obj.KindOfExpenses)
       setTitle(obj.ExpensesTitle)
       setPrice(obj.PricePerOne)
@@ -179,9 +182,9 @@ TotalPriceToPay:price*amount
       <TextField type={'number'} label={amount} color="success" size="small" onChange={(event)=>{setAmount(event.target.value)}}/>
       {/* onClick={() => {props.continueClicked('budget')}} */}
     </Box>
-    <Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={postNewExpenseToDB} variant="contained"> הוסף הוצאה</Button>
-    <Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={deleteExpense} variant="contained"> לחץ למחיקה</Button>
-    <Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={putExpense} variant="contained">לחץ לעדכון</Button>
+    {key===0 && <Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={postNewExpenseToDB} variant="contained"> הוסף הוצאה</Button>}
+    {key!==0 &&<Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={deleteExpense} variant="contained"> לחץ למחיקה</Button>}
+    {key!==0 &&<Button style={{marginLeft:'auto', marginRight:'auto',margin:'5px',backgroundColor:'#598e89'}} size="small" onClick={putExpense} variant="contained">לחץ לעדכון</Button>}
 
     </Paper>
     <Navigation pagNav={'budget'}/>

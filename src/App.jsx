@@ -9,6 +9,7 @@ import UserProfile from './components/UserProfile';
 import Budget from './components/Budget';
 import NewExpense from './components/NewExpense';
 import { Route, Routes } from 'react-router-dom';
+import ExpensesAnalysis from './components/ExpensesAnalysis';
 
 function App() {
   const [page, setPage] = useState('');// למחוק אחרי השילוב עם עטר
@@ -111,6 +112,7 @@ useEffect(()=>{
   {/* <Route path="profile" element={<UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}/>  */}
   {/* <Route path="NewExpense" element={<NewExpense title={numOfExpense.ExpensesTitle} price={numOfExpense.PricePerOne} amount={numOfExpense.NumberOfRepeatExpenses} ExKey={numOfExpense.ExpensesKey} Ecategory={numOfExpense.KindOfExpenses} />}/>  */}
   <Route path="NewExpense" element={<NewExpense />}/> 
+  <Route path="Analysis" element={<ExpensesAnalysis/>}/> 
 </Routes>
 
 

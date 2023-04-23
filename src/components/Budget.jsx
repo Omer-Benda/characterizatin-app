@@ -10,8 +10,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
 import DataTable from './DataTable';
+import { useNavigate } from 'react-router-dom';
 
 export default function Budget(props) {
+
+  const nav=useNavigate();
+
 
   const PrettoSlider = styled(Slider)({
     color: '#52af77',
@@ -75,7 +79,6 @@ export default function Budget(props) {
            console.log('response= ',response);
            console.log('response statuse=', response.status);
            console.log('response.ok=', response.ok)
-          
           return response.json()
           })
           .then(
@@ -127,12 +130,11 @@ export default function Budget(props) {
         </Typography>
       </CardContent>
       <CardActions >
-      <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={() => {props.continueClicked('')}} variant="contained">בוא נצלול פנימה</Button>
+      <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={() => {nav('/Analysis')}} variant="contained">בוא נצלול פנימה</Button>
       </CardActions>
     </Card>
     {/* <DataTable allExpenes={props.allExpenes} navTo={(page)=>props.continueClicked(page)} navToChange={(exNum)=>props.navToChange(exNum) }/> */}
     <DataTable allExpenes={FirstExpense}/>
-
       <Navigation pagNav={'budget'}/>
     </>
   )
