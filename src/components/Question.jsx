@@ -91,11 +91,8 @@ export default function Question(props) {
     (error) => {
     console.log("err post=", error);
     });     
-  
     nav('/PersonaC')
-
     // return 'PersonaC'
-
   }
 }
 }
