@@ -56,7 +56,7 @@ export default function Budget(props) {
     },
   });
   
-  const [value, setValue] = useState(25000);
+  const [value, setValue] = useState(props.bug);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
@@ -102,10 +102,10 @@ export default function Budget(props) {
     <>
       <TopOfAplication label='מעקב הוצאות'  />
       
-      <Card sx={{ minWidth: 275  }} style={{marginTop:'60px', backgroundColor:'#eeeeee'}} >
+      <Card sx={{ minWidth: 275  }} style={{marginTop:'60px'}} >
       <CardContent >
         <Typography variant="h6" component="div" gutterBottom  >
-        <b>  תקציב אישי </b>
+        <h4 style={{ color:'black',backgroundColor:'#eeeeee', padding:'5px', margin:'15px',borderRadius: '5%'}}> {"תקציב אישי"}</h4>
         </Typography>
         <Box sx={{ width: 270 }}>
             <Box sx={{ m: 1 }} />

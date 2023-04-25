@@ -15,26 +15,26 @@ import NewExpense from './NewExpense';
 import { useNavigate } from 'react-router-dom';
 
 const columns = [
-  { id: 'category', label: 'קטגוריה', minWidth: 5 },
-  { id: 'title', label: 'כותרת', minWidth: 5 },
+  { id: 'category', label: 'קטגוריה', minWidth: 1 },
+  { id: 'title', label: 'כותרת', minWidth:1  },
   {
     id: 'price',
     label: 'מחיר',
-    maxWidth: 5,
+    minWidth: 1,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'amount',
     label: 'כמות',
-    minWidth: 5,
+    minWidth: 1,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'sum',
     label: 'סה"כ',
-    minWidth: 5,
+    minWidth: 1,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
     // format: (value) => value.toFixed(2),
@@ -133,19 +133,20 @@ export default function DataTable(props) {
   // };
 
   return (
-    <Paper sx={{maxWidth:'350px', width: '110%', overflow: 'hidden',direction:'rtl',height:'100%',marginBottom:'30px',backgroundColor:'#eeeeee',margin:'30px'}}>
-      <h4 style={{ color:'black',backgroundColor:'#e0e0e0', padding:'5px', margin:'15px',borderRadius: '5%'}}>
+    <Paper sx={{maxWidth:'350px', width: '110%', overflow: 'hidden',direction:'rtl',height:'100%',marginBottom:'30px',margin:'30px'}}>
+      <h4 style={{ color:'black',backgroundColor:'#eeeeee', padding:'5px', margin:'15px',borderRadius: '5%'}}>
   {"רשימת ההוצאות שלי"}
 </h4>
       <TableContainer sx={{ maxHeight: 440, maxWidth:350, width: '100%'}} >
-        <Table stickyHeader aria-label="sticky table" >
+      {/* <Table stickyHeader aria-label="sticky table" > */}
+        <Table>
           <TableHead >
             <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth , backgroundColor:'#e0e0e0'}}
+                  style={{ minWidth: column.minWidth , backgroundColor:'#eeeeee'}}
                 >
                  <b>{column.label}</b>
                 </TableCell>

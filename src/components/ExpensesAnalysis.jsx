@@ -1,5 +1,5 @@
 
-import { Button, Card, CardActions, CardContent, Chip, Popper, Stack, Typography } from '@mui/material'
+import { Avatar, Button, Card, CardActions, CardContent, Chip, Paper, Popper, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -12,11 +12,17 @@ import GraphsBar from './GraphsBar'
 export default function ExpensesAnalysis() {
   const nav=useNavigate();
   const [expensesInApp, setExpensesInApp] = useState('');/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
-  const [sumExpense, setSumExpense] = useState(1);/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
-  const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
-  const [userBudget, setUserBudget] = useState(1);// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
+  const [sumExpense, setSumExpense] = useState(1);/// הוצאות המשתמש
+  const [userInApp, setUserInApp] = useState('');// החזקת המשתמש לאחר עדכונים- לא נידרש
+  const [userBudget, setUserBudget] = useState(1);//תקציב המשתמש כפי שהוגדר
   const [boolean, setBoolean] = useState(false);// בשביל ההצגה של הניתוחים
-
+//// שייך להחזקת הנתונים שמועברים לגרפים של הניתוח
+const [SumOfExpenseAtraction, setSumOfExpenseAtraction] = useState(0)
+const [SumOfExpenseSleep, setSumOfExpenseSleep] = useState(0)
+const [SumOfExpenseDrugs, setSumOfExpenseDrugs] = useState(0)
+const [SumOfExpenseFood, setSumOfExpenseFood] = useState(0)
+const [SumOfExpenseCasino, setSumOfExpenseCasino] = useState(0)
+const [SumOfExpenseParty, setSumOfExpenseParty] = useState(0)
   const booleanop=(boolean)=>{
     if (boolean) {
       setBoolean(false)
@@ -26,71 +32,6 @@ export default function ExpensesAnalysis() {
     }
   }/// שליטה על הצגה וסגיה של ניתוחים
 
-  useEffect(()=>{
-    const apiUrl='http://localhost:65095/api/expenses/?email=Benda669@gmail.com'
-    fetch(apiUrl, 
-       {
-       method: 'GET',
-      headers: new Headers({
-          'Content-Type':'application/json; charset=UTF-8',
-          'Accept':'application/json; charset=UTF-8',
-          }),
-      
-         })
-          .then(response => {
-           console.log('response= ',response);
-           console.log('response statuse=', response.status);
-           console.log('response.ok=', response.ok)
-          
-          return response.json()
-          })
-          .then(
-            (result)=>{
-              console.log("fetch get user by id=", result);
-              // console.log("result=", result.UserFirstName);
-              setExpensesInApp(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
-              console.log('UserEmail', result[0].UserEmail)
-              console.log('ExpensesTitle=', result[0].ExpensesTitle)
-              console.log(result.length);
-              const lengthOfArr=result.length;
-          
-            },
-          (error) => {
-          console.log("err post=", error);
-          });     
-      
-       },[])// הבאת כל ההוצאות של המשתמש
-
-  useEffect(()=>{
-    const apiUrl='http://localhost:65095/api/expenses/getsumof/?email=Benda669@gmail.com'
-    fetch(apiUrl, 
-       {
-       method: 'GET',
-      headers: new Headers({
-          'Content-Type':'application/json; charset=UTF-8',
-          'Accept':'application/json; charset=UTF-8',
-          }),
-      
-         })
-          .then(response => {
-           console.log('response= ',response);
-           console.log('response statuse=', response.status);
-           console.log('response.ok=', response.ok)
-          
-          return response.json()
-          })
-          .then(
-            (result)=>{
-              console.log("fetch get user sumOfExpense by email=", result);
-              // console.log("result=", result.UserFirstName);
-              setSumExpense(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
-            },
-          (error) => {
-          console.log("err post=", error);
-          });     
-      
-       },[]) // סה"כ הוצאות שלו עד כה
-       
  useEffect(()=>{
         const apiUrl='http://localhost:65095/api/users/getemail/?email=Benda669@gmail.com'
         // const apiUrl='http://localhost:58583/api/users/1'
@@ -127,13 +68,6 @@ export default function ExpensesAnalysis() {
         });     
     
           },[])// הבאת פרטי המשתמש- שימוש לתקציב שכן נקבע בדף ניהול תקציב
-  
-const [SumOfExpenseAtraction, setSumOfExpenseAtraction] = useState(0)
-const [SumOfExpenseSleep, setSumOfExpenseSleep] = useState(0)
-const [SumOfExpenseDrugs, setSumOfExpenseDrugs] = useState(0)
-const [SumOfExpenseFood, setSumOfExpenseFood] = useState(0)
-const [SumOfExpenseCasino, setSumOfExpenseCasino] = useState(0)
-const [SumOfExpenseParty, setSumOfExpenseParty] = useState(0)
           
 useEffect(()=>{
 const apiUrl='http://localhost:65095/api/expenses/getsumofall/?email=Benda669@gmail.com'
@@ -162,6 +96,7 @@ setSumOfExpenseDrugs(result.SumOfExpenseDrugs)
 setSumOfExpenseFood(result.SumOfExpenseFood)
 setSumOfExpenseCasino(result.SumOfExpenseCasino)
 setSumOfExpenseParty(result.SumOfExpenseParty)
+setSumExpense(result.SumOfExpense)
  },
  (error) => {
  console.log("err post=", error);
@@ -206,19 +141,55 @@ setSumOfExpenseParty(result.SumOfExpenseParty)
     // userLost: 234
   }
 ];
+const DataPrecent = [
+  {
+    id: 1,
+    KindOfExpenses: 'אטרקציות',
+    sumOfExpense: parseInt(SumOfExpenseAtraction/sumExpense*100),
+    // userLost: 8230
+  },
+  {
+    id: 2,
+    KindOfExpenses: 'לינה',
+    sumOfExpense: parseInt(SumOfExpenseSleep/sumExpense*100),
+    // userLost: 345
+  },
+  {
+    id: 3,
+    KindOfExpenses: 'מזון',
+    sumOfExpense: parseInt(SumOfExpenseFood/sumExpense*100),
+    // userLost: 555
+  },
+  {
+    id: 4,
+    KindOfExpenses: 'בילויים',
+    sumOfExpense: parseInt(SumOfExpenseParty/sumExpense*100),
+    // userLost: 4555
+  },
+  {
+    id: 5,
+    KindOfExpenses: 'סמים',
+    sumOfExpense: parseInt(SumOfExpenseDrugs/sumExpense*100),
+    // userLost: 234
+  },
+  {
+    id: 6,
+    KindOfExpenses: 'הימורים',
+    sumOfExpense: parseInt(SumOfExpenseCasino/sumExpense*100),
+    // userLost: 234
+  }
+];
     return (
     <div>
       <TopOfAplication label='ניתוח הוצאות'/>
-      
-      <Card sx={{ minWidth: 275  }} style={{marginTop:'60px', backgroundColor:'#eeeeee'}} >
+      <Card sx={{ minWidth: 275  }} style={{marginTop:'60px'}} >
+      <img className="App-logo" src="analysis3.png" style={{marginTop:'15px'}} />
       <CardContent >
-        <Typography variant="h6" component="div" gutterBottom  >
-        <b> סטטוס הוצאות</b>
-        </Typography>
+      <Chip icon={<Savings/>} style={{color:'ActiveCaption',marginBottom:'30px', height:'60px', width:'255px' }}  label={` ₪ ${userBudget} תקציב הטיול`}   variant="outlined" />
 
         <Typography variant="body2" >
           <br />
-          <Chip icon={<Savings/>} style={{color:'ActiveCaption'}}  label={` ₪ ${userBudget} תקציב הטיול`}   variant="outlined" />
+          {''}
           <ProgressBar sumOfexpenses={sumExpense} completed={parseInt((sumExpense/userBudget)*100)}/>
         </Typography>
         <Stack direction="row" spacing={2} style={{marginTop:'35px'}}>
@@ -227,10 +198,13 @@ setSumOfExpenseParty(result.SumOfExpenseParty)
           </Stack>
       </CardContent>
       <CardActions >
-      <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={() => {booleanop(boolean)}} variant="contained" > {<QueryStats/>}</Button>
+        <Avatar style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89',borderRadius:'90%'}} size='small' onClick={() => {booleanop(boolean)}} variant="contained" >
+            <QueryStats/>
+        </Avatar>
+      {/* <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89',borderRadius:'90%'}} size='small' onClick={() => {booleanop(boolean)}} variant="contained" > {<QueryStats/>}</Button> */}
       </CardActions>
     </Card>
-    {boolean==true&&<GraphsBar Data={Data}/>}
+    {boolean==true&&<GraphsBar Data={Data} DataPrecent={DataPrecent}/>}
       <Navigation pagNav={'budget'}/>
     </div>
   )

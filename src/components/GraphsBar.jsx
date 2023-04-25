@@ -1,9 +1,10 @@
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import { Doughnut, Pie } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 import { Card } from "@mui/material";
+import { Line } from 'react-chartjs-2';
 
 Chart.register(CategoryScale);
  
@@ -30,7 +31,7 @@ export default function GraphsBar(props) {
     labels: props.Data.map((data) => data.KindOfExpenses), 
     datasets: [
       {
-        label: "Users Gained ",
+        label: 'הוצאות בש"ח',
         data: props.Data.map((data) => data.sumOfExpense),
         backgroundColor: [
           "rgba(75,192,192,1)",
@@ -46,9 +47,31 @@ export default function GraphsBar(props) {
     ]
   });
 
+  const [chartDataP, setChartDataP] = useState({
+    labels: props.DataPrecent.map((data) => data.KindOfExpenses), 
+    datasets: [
+      {
+        label: '%',
+        data: props.DataPrecent.map((data) => data.sumOfExpense),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ce93d8",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+          "#e57373"
+        ],
+        borderColor: "black",
+        borderWidth: 1
+      }
+    ]
+  });
+
+
+
   return (
  <>
-<Card sx={{ minWidth: 275  }} style={{marginTop:'20px',marginBottom:'20px', backgroundColor:'#eeeeee'}}>
+<Card sx={{ minWidth: 275  }} style={{marginTop:'20px',marginBottom:'20px'}}>
 <h3 style={{ textAlign: "center" }}>הוצאות לפי קטגוריות</h3>
       <Bar
         data={chartData}
@@ -65,10 +88,10 @@ export default function GraphsBar(props) {
         }}
       />
 </Card>
-<Card sx={{ minWidth: 275  }} style={{marginBottom:'50px', backgroundColor:'#eeeeee'}}>
+<Card sx={{ minWidth: 275, height: 380  }} style={{marginBottom:'20px'}}>
       <h3 style={{ textAlign: "center" }}>פילוח הוצאות</h3>
       <Pie
-        data={chartData}
+        data={chartDataP}
         options={{
           plugins: {
             title: {
@@ -79,6 +102,20 @@ export default function GraphsBar(props) {
         }}
       />
 </Card>  
+{/* <Card sx={{ minWidth: 275}} style={{marginBottom:'10px'}}>
+      <h3 style={{ textAlign: "center" }}>מגמה</h3>
+      <Line
+  data={chartData}
+  options={{
+    plugins: {
+      title: {
+        display: true,
+      }
+    }
+  }}
+
+/>
+</Card>   */}
 </>
   );
 }
