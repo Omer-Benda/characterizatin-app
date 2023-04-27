@@ -58,6 +58,8 @@ const handleChange = (event, newValue) => {
             label="מפה"
             value="map"
             icon={<TravelExplore />}
+            onClick={() => {nav('/map')}}
+
           />
 
           {/* <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {props.navTo("profile")}} /> */}

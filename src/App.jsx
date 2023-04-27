@@ -10,6 +10,7 @@ import Budget from './components/Budget';
 import NewExpense from './components/NewExpense';
 import { Route, Routes } from 'react-router-dom';
 import ExpensesAnalysis from './components/ExpensesAnalysis';
+import Map from './components/Map';
 
 function App() {
   const [page, setPage] = useState('');// למחוק אחרי השילוב עם עטר
@@ -140,13 +141,15 @@ useEffect(()=>{
   <Route path="PersonaB" element={<Persona name={userInApp.UserFirstName} pageNum='balyanim'/>}/> 
   <Route path="PersonaC" element={<Persona name={userInApp.UserFirstName} pageNum='chill'/>}/> 
   <Route path="userProfile" element={<UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail}/>}/> 
-  <Route path="budget" element={<Budget allExpenes={expensesInApp} bug={userInApp.UserBuget}/>}/> 
+  <Route path="budget" element={<Budget allExpenes={expensesInApp} bug={userInApp.UserBudget}/>}/> 
   {/* <Route path="budget" element={<Budget allExpenes={expensesInApp} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}} navToChange={(exNum) => {setNumOfExpense(exNum)}}/>}/>  */}
   <Route path="profile" element={<UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType}/>}/> 
   {/* <Route path="profile" element={<UserProfile name={userInApp.UserFirstName} email={userInApp.UserEmail} personaType={userInApp.UserType} continueClicked={(navigaitionTo) => { setPage(navigaitionTo)}}/>}/>  */}
   {/* <Route path="NewExpense" element={<NewExpense title={numOfExpense.ExpensesTitle} price={numOfExpense.PricePerOne} amount={numOfExpense.NumberOfRepeatExpenses} ExKey={numOfExpense.ExpensesKey} Ecategory={numOfExpense.KindOfExpenses} />}/>  */}
   <Route path="NewExpense" element={<NewExpense />}/> 
   <Route path="Analysis" element={<ExpensesAnalysis/>}/> 
+  <Route path="map" element={<Map/>}/> 
+
 </Routes>
 
 

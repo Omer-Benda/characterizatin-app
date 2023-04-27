@@ -44,7 +44,7 @@ export default function Question(props) {
     // return'PersonaM'
     nav('/PersonaM')
   }
-  if (randomNumber <=66) {
+  else if (randomNumber <=66) {
     const apiUrl='http://localhost:65095/api/users/putid/6'
     // const apiUrl='http://localhost:58583/api/users/1'
 
@@ -70,7 +70,8 @@ export default function Question(props) {
     // return 'PersonaB'
     nav('/PersonaB')
 
-  } else {
+  }
+  else if(randomNumber <=100) {
     const apiUrl='http://localhost:65095/api/users/putid/6'
     // const apiUrl='http://localhost:58583/api/users/1'
     fetch(apiUrl, 
@@ -101,7 +102,7 @@ export default function Question(props) {
    
 {props.pageNum=='first' ? <div>
 <TopOfAplication label='שאלות היכרות'/>
-<img className="App-logo" src="logo.png" style={{marginTop:'45px'}}  />
+<img className="App-logo" src="logo.png" style={{marginTop:'45px'}} alt='logo'  />
 <SingelQuestion q="מינך" f="אחר" s="אישה" t="גבר"/>
 <SingelQuestion q="איזור מגורים" f=" דרום" s="מרכז" t="צפון"/>
 <SingelQuestion q="באיזה יבשת תכננת לטייל" f="דרום אמריקה" s="מרכז אמריקה" t="מזרח" fo="לא החלטתי"/>
@@ -116,12 +117,10 @@ export default function Question(props) {
 
 {props.pageNum=='second' ? <div>
   <div>
-    
-  {/* <Button onClick={()=>{props.continueClicked('firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250' }}/> </Button> */}
-  <Button onClick={()=>{nav('/firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250' }}/> </Button>
-
+  <Button onClick={()=>{nav('/firstQues')}}> <ArrowBackIosNew style={{color:'black', marginRight:'250', position:'absolute'}}/> </Button>
   </div>
-<img className="App-logo" src="logo.png" style={{marginTop:'45px'}} />
+  {/* <TopOfAplication label='היכרות - מתקדם'/> */}
+<img className="App-logo" src="logo.png" style={{marginTop:'45px'}} alt='logo' />
 
 <h3 style={{color:'black', fontSize:'20px', 
 textAlign:'center', marginLeft:'auto', marginRight:'auto' } }> {props.name}, עוד כמה שאלות וסיימנו <br /> </h3>

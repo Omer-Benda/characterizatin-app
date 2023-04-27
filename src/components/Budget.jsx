@@ -13,9 +13,7 @@ import DataTable from './DataTable';
 import { useNavigate } from 'react-router-dom';
 
 export default function Budget(props) {
-
   const nav=useNavigate();
-
 
   const PrettoSlider = styled(Slider)({
     color: '#52af77',
@@ -98,6 +96,30 @@ export default function Budget(props) {
       
        },[])//// כרגע לא עובד- כנ"ל לגבר הסט סטייט שמעליו, שניהם קשורים ליכולת רינדור של הטבלה
 
+ const budgetChange=()=>{
+  const apiUrl='http://localhost:65095/api/users/putemail/budget/?email=Benda669@gmail.com'
+  fetch(apiUrl, 
+    {
+    method: 'PUT',
+    body:JSON.stringify(value),
+    headers: new Headers({
+      'Content-Type':'application/json; charset=UTF-8',
+      'Accept':'application/json; charset=UTF-8',
+      })
+      
+    })
+  .then(response => {
+   console.log('response= ',response);
+   console.log('response statuse=', response.status);
+   console.log('response.ok=', response.ok)
+  },
+  (error) => {
+  console.log("err post=", error);
+  });     
+
+  nav('/Analysis')
+ }
+
   return (
     <>
       <TopOfAplication label='מעקב הוצאות'  />
@@ -130,7 +152,8 @@ export default function Budget(props) {
         </Typography>
       </CardContent>
       <CardActions >
-      <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={() => {nav('/Analysis')}} variant="contained">בוא נצלול פנימה</Button>
+      {/* <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={() => {nav('/Analysis')}} variant="contained">בוא נצלול פנימה</Button> */}
+      <Button style={{marginLeft:'auto', marginRight:'auto',backgroundColor:'#598e89'}} size="small" onClick={budgetChange} variant="contained">בוא נצלול פנימה</Button>
       </CardActions>
     </Card>
     {/* <DataTable allExpenes={props.allExpenes} navTo={(page)=>props.continueClicked(page)} navToChange={(exNum)=>props.navToChange(exNum) }/> */}

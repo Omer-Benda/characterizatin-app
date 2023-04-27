@@ -57,10 +57,10 @@ const [SumOfExpenseParty, setSumOfExpenseParty] = useState(0)
             console.log("fetch get user by id=", result);
             console.log("result=", result.UserFirstName);
             setUserInApp(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
-            setUserBudget(result.UserBuget)
+            setUserBudget(result.UserBudget)
             console.log('first name=', result.UserFirstName)
             console.log('first name=', result.UserLastName)
-            console.log('budget=', result.UserBuget)
+            console.log('budget=', result.UserBudget)
 
           },
         (error) => {
