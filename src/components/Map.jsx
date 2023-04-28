@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
-import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer, OverlayView, StreetViewPanorama } from '@react-google-maps/api';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import CountrySelect from './SelectComp';
 import TopOfAplication from './TopOfAplication';
 import Navigation from './Navigation';
 import { NativeSelect } from '@mui/material';
+import FormControlLabelPosition from './FormControlLabelPosition';
 
 
 const containerStyle = {
     width: '320px',
     height: '380px',
     borderRadius: '10px',
-    
+
 };
 
 // const center = {
@@ -47,18 +48,35 @@ const locations = [
 ]
 
 const options = {
-    imagePath: 'https://placehold.co/600x40'
+    // imagePath: 'https://placehold.co/600x40'
+    imagePath:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/600px-Smiley.svg.png'
 }
 
 function createKey(location) {
     return location.lat + location.lng;
 }
 
+function createLocation(location) {
+  const locationsA=[];
+  for (let index = 0; index < location.length; index++) {
+    locationsA[index]={lat: location[index].AttractionsLatitude, lng:location[index].AttractionsLongitude }
+    console.log(locationsA[index])
+  }
+  console.log(locationsA)
+  return locationsA;
+}
+
 function Map(props){
+
+  const [attractionList, setAttractionList] = React.useState([]);
+  const [sleepingList, setSleepingList] = React.useState();
+  const [aidCompListList, setAidCompListList] = React.useState();
+  const [tripList, setTripList] = React.useState();
+
 
   const handleChange = (event) => {
     setRowsPerPage(event.target.value);
-    if (event.target.value=='בסביבה') {      
+    if (event.target.value=='בסביבה') {
         navigator.geolocation.getCurrentPosition(
             position => {
                 setUserLocation({
@@ -97,12 +115,12 @@ function Map(props){
                 (result) => {
                     console.log("fetch get user by id=", result);
                     console.log(result[0]);
-                    setAtar(result[0])
+                    setcountryFromDB(result[0])
                   setCenter({
                     lat: result[0].CountryLat,
                     lng: result[0].CountryLon
                            })
-                
+                setAttractionList(createLocation(result[0].AttractionList))//// בעזרת השם אם זה עובד, תיווצר בפועל רשימה מסוג לוקיישן על פי הפורמט המקובל על גוגל
                 },
                 (error) => {
                     console.log("err post=", error);
@@ -119,13 +137,13 @@ function Map(props){
         CountryLon: '0'
     });
 
-    const [Atar, setAtar] = useState(
+    const [countryFromDB, setcountryFromDB] = useState(
         {
           CountryLat: 0,
           CountryLon: 0
 
         }
-    )
+    )//// מחזיק את כל הפרטים שיש לנו בדאטה בייס על המידה - נבנה כמערך שבמקום ה0 יש אובייקט שכולל גם הוא מערכים
 
     const [center, setCenter] = useState({
         lat: -37.765015,
@@ -157,7 +175,7 @@ function Map(props){
               })
           }
       )
-        
+
     }, []);/// בכניסה ראשונית למסך מפה- יקבע המרכז על פי המיקום של המשתמש
 
     const onUnmount = React.useCallback(function callback(map) {
@@ -195,7 +213,7 @@ function Map(props){
                 (result) => {
                     console.log("fetch get user by id=", result);
                     console.log(result[0]);
-                    setAtar(result[0])
+                    setcountryFromDB(result[0])
                   setCenter({
                     lat: result[0].CountryLat,
                     lng: result[0].CountryLon
@@ -226,51 +244,56 @@ function Map(props){
         // )
     }
 
+    const locationClick=(cordinaint)=>{
+      alert(cordinaint)
+    }
     return isLoaded ? (
         <>
         <TopOfAplication label='מה יש לעולם להציע'/>
-            {/* <Grid container spacing={10}>
-                <Grid item xs={6} md={6}>
-                    <img className="App-logo" src="logo.png" alt="sad"
-                        style={{
-                            width: 100,
-                            height: 100,
-                            marginTop: -108,
-                            marginBottom: 100
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={6} md={6}>
-                    <Avatar className='User-Photo'
-                        alt="Remy Sharp"
-                        src="userPhoto.jpeg"
-                        sx={{ width: 80, height: 80 }}
-                    />
-                </Grid>
-            </Grid> */}
 
-  <NativeSelect
+    {/* <Grid container spacing={12} direction='rtl'>
+    <Grid item xs={8}>
+
+    </Grid>
+    <Grid item xs={4}>
+
+    </Grid>
+    </Grid > */}
+    <NativeSelect
   defaultValue={rowsPerPage}
   inputProps={{
     name: 'PageNum',
     id: 'uncontrolled-native',
   }}
   onChange={handleChange}
-  sx={{ minWidth: 50, borderRadius: '20%', fontSize:'25px'}}
+  sx={{ minWidth: 50, maxHeight:30, borderRadius: '20%', fontSize:'15px'}}
 
 >
   <option value={'בסביבה'}>בסביבה שלי</option>
   <option value={'הודו'}>הודו</option>
   <option value={'ברזיל'}>ברזיל</option>
   <option value={'אווקודור'}>אקוודור</option>
-  <option value={'מקסיקו'}>מקסיקו</option>
-
+  <option value={'ארגנטינה'}>ארגנטינה</option>
+  <option value={'בוליביה'}>בוליביה</option>
+  <option value={'בורמה'}>בורמה</option>
+  <option value={'גוואטמלה'}>גוואטמלה</option>
+  <option value={'ויאטנם'}>ויאטנם</option>
+  <option value={'לאוס'}>לאוס</option>
+  <option value={'סרילנקה'}>סרילנקה</option>
+  <option value={'פיליפינים'}>פיליפינים</option>
+  <option value={'פנמה'}>פנמה</option>
+  <option value={'פרו'}>פרו</option>
+  <option value={'צילה'}>צילה</option>
+  <option value={'קוסטה ריקה'}>קוסטה ריקה</option>
+  <option value={'קמבודיה'}>קמבודיה</option>
+  <option value={'תאילנד'}>תאילנד</option>
+  <option value={'נאפל'}>נאפל</option>
 
 </NativeSelect>
+
             {/* <CountrySelect onChange={countryChanged} /> */}
 
             <br />
-
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
@@ -278,13 +301,21 @@ function Map(props){
                 onLoad={onLoad}
                 onUnmount={onUnmount}
             >
-                <MarkerClusterer options={options}>
+                {/* <MarkerClusterer options={options}>
                     {(clusterer) =>
                         locations.map((location) => (
                             <Marker key={createKey(location)} position={location} clusterer={clusterer} />
                         ))
                     }
+                </MarkerClusterer> */}
+                <MarkerClusterer options={options}>
+                    {(clusterer) =>
+                        attractionList.map((location) => (
+                            <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}  />
+                        ))
+                    }
                 </MarkerClusterer>
+
             </GoogleMap>
 <Navigation pagNav={'map'}/>
         </>
