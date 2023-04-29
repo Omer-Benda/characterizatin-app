@@ -54,47 +54,83 @@ export default function Budget(props) {
     },
   });
   
-  const [value, setValue] = useState(props.bug);
+  const [value, setValue] = useState();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
 
-  const [FirstExpense, setFirstExpense]=useState(props.allExpenes);
+  //const [FirstExpense, setFirstExpense]=useState(props.allExpenes);
+  const [expensesInApp, setExpensesInApp] = useState([]);/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
 
-  useEffect(()=>{
-    const apiUrl='http://localhost:65095/api/expenses/?email=Benda669@gmail.com'
-    // const apiUrl='http://localhost:58583/api/users/1'
-    fetch(apiUrl, 
-       {
-       method: 'GET',
-      headers: new Headers({
-          'Content-Type':'application/json; charset=UTF-8',
-          'Accept':'application/json; charset=UTF-8',
-          }),
-      
-         })
-          .then(response => {
-           console.log('response= ',response);
-           console.log('response statuse=', response.status);
-           console.log('response.ok=', response.ok)
-          return response.json()
+  const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
+
+useEffect(()=>{
+        const apiUrl='http://localhost:65095/api/users/getemail/?email=Benda669@gmail.com'    
+        fetch(apiUrl, 
+          {
+          method: 'GET',
+          headers: new Headers({
+            'Content-Type':'application/json; charset=UTF-8',
+            'Accept':'application/json; charset=UTF-8',
+            })
+            
           })
-          .then(
-            (result)=>{
-              console.log("fetch get user by id=", result);
-              // console.log("result=", result.UserFirstName);
-              setFirstExpense(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
-              console.log('UserEmail', result[0].UserEmail)
-              console.log('ExpensesTitle=', result[0].ExpensesTitle)
-              console.log(result.length);
-              const lengthOfArr=result.length;
-          
-            },
-          (error) => {
-          console.log("err post=", error);
-          });     
-      
-       },[])//// כרגע לא עובד- כנ"ל לגבר הסט סטייט שמעליו, שניהם קשורים ליכולת רינדור של הטבלה
+        .then(response => {
+         console.log('response= ',response);
+         console.log('response statuse=', response.status);
+         console.log('response.ok=', response.ok)
+        
+        return response.json()
+        })
+        .then(
+          (result)=>{
+            console.log("fetch get user by id=", result);
+            console.log("result=", result.UserFirstName);
+            setUserInApp(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
+            setValue(result.UserBudget)
+            console.log('first name=', result.UserFirstName)
+            console.log('first name=', result.UserLastName)
+            console.log('budget=', result.UserBudget)
+
+          },
+        (error) => {
+        console.log("err post=", error);
+        });     
+    
+     },[])
+ 
+useEffect(()=>{
+  const apiUrl='http://localhost:65095/api/expenses/?email=Benda669@gmail.com'
+  fetch(apiUrl, 
+     {
+     method: 'GET',
+    headers: new Headers({
+        'Content-Type':'application/json; charset=UTF-8',
+        'Accept':'application/json; charset=UTF-8',
+        }),
+    
+       })
+        .then(response => {
+         console.log('response= ',response);
+         console.log('response statuse=', response.status);
+         console.log('response.ok=', response.ok)
+        
+        return response.json()
+        })
+        .then(
+          (result)=>{
+            console.log("fetch get user by id=", result);
+            setExpensesInApp(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
+            console.log('UserEmail', result[0].UserEmail)
+            console.log('ExpensesTitle=', result[0].ExpensesTitle)
+            console.log(result.length);        
+          },
+        (error) => {
+        console.log("err post=", error);
+        });     
+    
+     },[])
+    
 
  const budgetChange=()=>{
   const apiUrl='http://localhost:65095/api/users/putemail/budget/?email=Benda669@gmail.com'
@@ -117,7 +153,7 @@ export default function Budget(props) {
   console.log("err post=", error);
   });     
 
-  nav('/Analysis')
+  nav('/Analysis',{state:value})
  }
 
   return (
@@ -157,7 +193,7 @@ export default function Budget(props) {
       </CardActions>
     </Card>
     {/* <DataTable allExpenes={props.allExpenes} navTo={(page)=>props.continueClicked(page)} navToChange={(exNum)=>props.navToChange(exNum) }/> */}
-    <DataTable allExpenes={FirstExpense}/>
+    {expensesInApp[0] !==undefined?<DataTable allExpenes={expensesInApp}/>:''}
       <Navigation pagNav={'budget'}/>
     </>
   )

@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Alert, Box, Button, FormControl, InputLabel, MenuItem, NativeSelect, Pagination, Select } from '@mui/material';
-import { PostAdd } from '@mui/icons-material';
+import { Edit, PostAdd, RemoveRedEye } from '@mui/icons-material';
 import NewExpense from './NewExpense';
 import { useNavigate } from 'react-router-dom';
 
@@ -137,6 +137,7 @@ export default function DataTable(props) {
       <h4 style={{ color:'black',backgroundColor:'#eeeeee', padding:'5px', margin:'15px',borderRadius: '5%'}}>
   {"רשימת ההוצאות שלי"}
 </h4>
+<Alert sx={{direction:'rtl'}} icon={<Edit fontSize="inherit" />} >לחיצה על הוצאה תוביל לאפשרות עריכה ומחיקה</Alert>
       <TableContainer sx={{ maxHeight: 440, maxWidth:350, width: '100%'}} >
       {/* <Table stickyHeader aria-label="sticky table" > */}
         <Table>

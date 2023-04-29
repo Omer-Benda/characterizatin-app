@@ -1,8 +1,7 @@
 
-import { Avatar, Button, Card, CardActions, CardContent, Chip, Paper, Popper, Stack, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import { Avatar, Card, CardActions, CardContent, Chip, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Navigation from './Navigation'
 import ProgressBar from './ProgressBar'
 import TopOfAplication from './TopOfAplication'
@@ -11,9 +10,15 @@ import GraphsBar from './GraphsBar'
 
 export default function ExpensesAnalysis() {
   const nav=useNavigate();
-  const [expensesInApp, setExpensesInApp] = useState('');/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
+  const {state}=useLocation();
+  useEffect(()=>{
+    if (state!=undefined) {
+      const obj=state;
+      setUserBudget(obj)
+    }
+  },[])
+
   const [sumExpense, setSumExpense] = useState(1);/// הוצאות המשתמש
-  const [userInApp, setUserInApp] = useState('');// החזקת המשתמש לאחר עדכונים- לא נידרש
   const [userBudget, setUserBudget] = useState(1);//תקציב המשתמש כפי שהוגדר
   const [boolean, setBoolean] = useState(false);// בשביל ההצגה של הניתוחים
 //// שייך להחזקת הנתונים שמועברים לגרפים של הניתוח
@@ -32,42 +37,42 @@ const [SumOfExpenseParty, setSumOfExpenseParty] = useState(0)
     }
   }/// שליטה על הצגה וסגיה של ניתוחים
 
- useEffect(()=>{
-        const apiUrl='http://localhost:65095/api/users/getemail/?email=Benda669@gmail.com'
-        // const apiUrl='http://localhost:58583/api/users/1'
+//  useEffect(()=>{
+//         const apiUrl='http://localhost:65095/api/users/getemail/?email=Benda669@gmail.com'
+//         // const apiUrl='http://localhost:58583/api/users/1'
     
-        fetch(apiUrl, 
-          {
-          method: 'GET',
-          headers: new Headers({
-            'Content-Type':'application/json; charset=UTF-8',
-            'Accept':'application/json; charset=UTF-8',
-            })
+//         fetch(apiUrl, 
+//           {
+//           method: 'GET',
+//           headers: new Headers({
+//             'Content-Type':'application/json; charset=UTF-8',
+//             'Accept':'application/json; charset=UTF-8',
+//             })
             
-          })
-        .then(response => {
-         console.log('response= ',response);
-         console.log('response statuse=', response.status);
-         console.log('response.ok=', response.ok)
+//           })
+//         .then(response => {
+//          console.log('response= ',response);
+//          console.log('response statuse=', response.status);
+//          console.log('response.ok=', response.ok)
         
-        return response.json()
-        })
-        .then(
-          (result)=>{
-            console.log("fetch get user by id=", result);
-            console.log("result=", result.UserFirstName);
-            setUserInApp(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
-            setUserBudget(result.UserBudget)
-            console.log('first name=', result.UserFirstName)
-            console.log('first name=', result.UserLastName)
-            console.log('budget=', result.UserBudget)
+//         return response.json()
+//         })
+//         .then(
+//           (result)=>{
+//             console.log("fetch get user by id=", result);
+//             console.log("result=", result.UserFirstName);
+//             setUserInApp(result); // השמה של המשתמש שהגיע מהדאטה בייס להמשך עבודה בצד שרת
+//             setUserBudget(result.UserBudget)
+//             console.log('first name=', result.UserFirstName)
+//             console.log('first name=', result.UserLastName)
+//             console.log('budget=', result.UserBudget)
 
-          },
-        (error) => {
-        console.log("err post=", error);
-        });     
+//           },
+//         (error) => {
+//         console.log("err post=", error);
+//         });     
     
-          },[])// הבאת פרטי המשתמש- שימוש לתקציב שכן נקבע בדף ניהול תקציב
+//           },[])// הבאת פרטי המשתמש- שימוש לתקציב שכן נקבע בדף ניהול תקציב
           
 useEffect(()=>{
 const apiUrl='http://localhost:65095/api/expenses/getsumofall/?email=Benda669@gmail.com'

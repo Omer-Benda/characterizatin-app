@@ -18,18 +18,18 @@ const containerStyle = {
 const Flagimage ="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 
 const locations = [
-    { lat: -31.56391, lng: 147.154312 },
-    { lat: -33.718234, lng: 150.363181 },
-    { lat: -33.727111, lng: 150.371124 },
-    { lat: -33.848588, lng: 151.209834 },
-    { lat: -33.851702, lng: 151.216968 },
-    { lat: -34.671264, lng: 150.863657 },
-    { lat: -35.304724, lng: 148.662905 },
-    { lat: -36.817685, lng: 175.699196 },
-    { lat: -36.828611, lng: 175.790222 },
-    { lat: -37.75, lng: 145.116667 },
-    { lat: -37.759859, lng: 145.128708 },
-    { lat: -37.765015, lng: 145.133858 },
+    { lat: 26.167789, lng: 73.898222 },
+    { lat: 25.718234, lng: 73.363181 },
+    { lat: 25.727111, lng: 73.371124 },
+    { lat: 29.848588, lng: 73.209834 },
+    { lat: 28.851702, lng: 69.216968 },
+    { lat: 29.671264, lng: 75.863657 },
+    { lat: 27.304724, lng: 79.662905 },
+    { lat: 24.817685, lng: 77.699196 },
+    { lat: 30.828611, lng: 77.790222 },
+    { lat: 26.556104, lng: 77.491577 },
+    { lat: 25.759859, lng: 78.128708 },
+    { lat: 24.765015, lng:82.133858 },
     { lat: -37.770104, lng: 145.143299 },
     { lat: -37.7737, lng: 145.145187 },
     { lat: -37.774785, lng: 145.137978 },
@@ -42,19 +42,26 @@ const locations = [
     { lat: -42.735258, lng: 147.438 },
     { lat: -43.999792, lng: 170.463352 },
 ]
-
 const options = {
-    imagePath:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/600px-Smiley.svg.png'
-}// מקבץ סמיילי 
-
-const options2 = {
     imagePath: 'https://placehold.co/600x40'
 }// מקבץ דיפולטיבי אפור
+const optionTrip ={
+    imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF94epaEiWysgcDS12ZdRe10FnQY_43-OtUCXti4hXl-VQyJk0AGJubYe2L2FOb82zC6I&usqp=CAU"
+
+}
+const optionSleep={
+    imagePath:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToaQeycIKgB5bCaIOrKTdjT1Gaz1stu0S17d_ygdC78TWAkEbbXcXw_mrSsIJxzAKbxzw&usqp=CAU"
+}
+const optionAid={
+    imagePath:"https://img.lovepik.com/element/40021/9804.png_860.png"
+}
+const optionAtraction={
+    imagePath:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiboOhgi6sKRvohBXDnCHnSrn3cbatkqK94FKt8FwjZL5fXbNZyQd2jJq6_QyMY_-UrGI&usqp=CAU"
+}
 
 function createKey(location) {
     return location.lat + location.lng;
 }
-
 function createLocation(location) {
   const locationsA=[];
   for (let index = 0; index < location.length; index++) {
@@ -95,6 +102,7 @@ function Map(props){
   const [aidCompListList, setAidCompListList] = React.useState([]);// מתחמי סיוע של המדינה שנבחרה
   const [tripList, setTripList] = React.useState([]);// הצעות לטיולים במדינה שנבחרה
 
+  const [zoom, setZoom]=React.useState(5)
 
   const handleChange = (event) => {
     setRowsPerPage(event.target.value);
@@ -202,7 +210,8 @@ function Map(props){
     }, []);
 
     const locationClick=(cordinaint)=>{
-      alert(cordinaint)
+        setZoom(prev=>prev*1.5)
+        alert(cordinaint)
     }// זמני- בלחיצה על נקודה מסומנת איזה פעולה נרצה שתקה
     return isLoaded ? (
         <>
@@ -239,34 +248,26 @@ function Map(props){
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
-                zoom={7}
+                zoom={zoom}
                 onLoad={onLoad}
                 onUnmount={onUnmount}>
-            <MarkerClusterer options={options2}>
+            <MarkerClusterer options={optionSleep}>
                     {(clusterer) =>
                         locations.map((location) => (
-                            <Marker key={createKey(location)} position={location} clusterer={clusterer}             
-                                icon={{
-                                path:"M8 12l-4.7023 2.4721.898-5.236L.3916 5.5279l5.2574-.764L8 0l2.3511 4.764 5.2574.7639-3.8043 3.7082.898 5.236z",
-                                fillColor: "yellow",
-                                fillOpacity: 0.9,
-                                scale: 2,
-                                strokeColor: "gold",
-                                strokeWeight: 2,
-                              }}  />
+                            <Marker key={createKey(location)} position={location} clusterer={clusterer}/>
                         ))
                     }
             </MarkerClusterer>
 
-            <MarkerClusterer options={options}>
+            <MarkerClusterer options={optionAtraction}>
                     {(clusterer) =>
                         attractionList.map((location) => (
-                            <Marker icon={Flagimage} key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
+                            <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
                         ))
                     }
             </MarkerClusterer>
 
-            <MarkerClusterer options={options2}>
+            <MarkerClusterer options={optionSleep} >
                     {(clusterer) =>
                         sleepingList.map((location) => (
                             <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
@@ -274,7 +275,7 @@ function Map(props){
                     }
             </MarkerClusterer>
 
-            <MarkerClusterer options={options2}>
+            <MarkerClusterer options={optionAid}>
                     {(clusterer) =>
                         aidCompListList.map((location) => (
                             <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
@@ -282,7 +283,7 @@ function Map(props){
                     }
             </MarkerClusterer>
             
-            <MarkerClusterer options={options2}>
+            <MarkerClusterer options={optionTrip}>
                     {(clusterer) =>
                         tripList.map((location) => (
                             <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
