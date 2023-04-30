@@ -5,17 +5,31 @@ import Avatar from '@mui/material/Avatar';
 import CountrySelect from './SelectComp';
 import TopOfAplication from './TopOfAplication';
 import Navigation from './Navigation';
-import { NativeSelect } from '@mui/material';
+import { NativeSelect, Paper } from '@mui/material';
 import FormControlLabelPosition from './FormControlLabelPosition';
+import OptionsCom from './OptionsCom';
+import { Box } from '@mui/system';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import { Gite, Whatshot } from '@mui/icons-material';
 
 
 const containerStyle = {
     width: '320px',
-    height: '380px',
+    height: '390px',
     borderRadius: '10px',
 };
 
 const Flagimage ="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+
+const star = {
+    path:
+      "M8 12l-4.7023 2.4721.898-5.236L.3916 5.5279l5.2574-.764L8 0l2.3511 4.764 5.2574.7639-3.8043 3.7082.898 5.236z",
+    fillColor: "gold",
+    fillOpacity: 0.9,
+    scale: 1.3,
+    strokeColor: "black",
+    strokeWeight: 1,
+  }
 
 const locations = [
     { lat: 26.167789, lng: 73.898222 },
@@ -102,10 +116,10 @@ function Map(props){
   const [aidCompListList, setAidCompListList] = React.useState([]);// מתחמי סיוע של המדינה שנבחרה
   const [tripList, setTripList] = React.useState([]);// הצעות לטיולים במדינה שנבחרה
 
-  const [zoom, setZoom]=React.useState(5)
+  const [zoom, setZoom]=React.useState(3.5)
 
   const handleChange = (event) => {
-    setRowsPerPage(event.target.value);
+    setSelectCountry(event.target.value);
     if (event.target.value=='בסביבה') {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -160,7 +174,7 @@ function Map(props){
                 });
     }
   };
-  const [rowsPerPage, setRowsPerPage] = React.useState("בחר מדינה");
+  const [selectCountry, setSelectCountry] = React.useState("בחר מדינה");
 
     const [map, setMap] = React.useState(null);
 
@@ -210,20 +224,20 @@ function Map(props){
     }, []);
 
     const locationClick=(cordinaint)=>{
-        setZoom(prev=>prev*1.5)
+        setZoom(prev=>prev*1.2)
         alert(cordinaint)
     }// זמני- בלחיצה על נקודה מסומנת איזה פעולה נרצה שתקה
     return isLoaded ? (
         <>
     <TopOfAplication label='מה יש לעולם להציע'/>
-
+    <Paper>
     <NativeSelect
-        defaultValue={rowsPerPage}
+        defaultValue={selectCountry}
         inputProps={{
         name: 'PageNum',
         id: 'uncontrolled-native',}}
         onChange={handleChange}
-        sx={{ minWidth: 50, maxHeight:30, borderRadius: '20%', fontSize:'15px'}}>
+        sx={{ mb:2,mt:6,minWidth: 50, maxHeight:30, borderRadius: '20%', fontSize:'15px'}}>
             <option value={'בסביבה'}>בסביבה שלי</option>
             <option value={'הודו'}>הודו</option>
             <option value={'ברזיל'}>ברזיל</option>
@@ -235,8 +249,8 @@ function Map(props){
             <option value={'גוואטמלה'}>גוואטמלה</option>
             <option value={'ויאטנם'}>ויאטנם</option>
             <option value={'לאוס'}>לאוס</option>
-            <option value={'סרילנקה'}>סרילנקה</option>
-            <option value={'פיליפינים'}>פיליפינים</option>
+            {/* <option value={'סרילנקה'}>סרילנקה</option>
+            <option value={'פיליפינים'}>פיליפינים</option> */}
             {/* <option value={'פנמה'}>פנמה</option>
             <option value={'פרו'}>פרו</option>
             <option value={'צילה'}>צילה</option>
@@ -254,7 +268,7 @@ function Map(props){
             <MarkerClusterer options={optionSleep}>
                     {(clusterer) =>
                         locations.map((location) => (
-                            <Marker key={createKey(location)} position={location} clusterer={clusterer}/>
+                            <Marker key={createKey(location)} position={location} />
                         ))
                     }
             </MarkerClusterer>
@@ -262,7 +276,7 @@ function Map(props){
             <MarkerClusterer options={optionAtraction}>
                     {(clusterer) =>
                         attractionList.map((location) => (
-                            <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
+                            <Marker label='A' key={createKey(location)} position={location}  onClick={()=>{locationClick(createKey(location))}}/>
                         ))
                     }
             </MarkerClusterer>
@@ -270,7 +284,7 @@ function Map(props){
             <MarkerClusterer options={optionSleep} >
                     {(clusterer) =>
                         sleepingList.map((location) => (
-                            <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
+                            <Marker label='S' key={createKey(location)} position={location} onClick={()=>{locationClick(createKey(location))}}/>
                         ))
                     }
             </MarkerClusterer>
@@ -278,7 +292,7 @@ function Map(props){
             <MarkerClusterer options={optionAid}>
                     {(clusterer) =>
                         aidCompListList.map((location) => (
-                            <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
+                            <Marker label='HOS' key={createKey(location)} position={location}onClick={()=>{locationClick(createKey(location))}}/>
                         ))
                     }
             </MarkerClusterer>
@@ -286,12 +300,24 @@ function Map(props){
             <MarkerClusterer options={optionTrip}>
                     {(clusterer) =>
                         tripList.map((location) => (
-                            <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
+                            <Marker label='T' key={createKey(location)} position={location} onClick={()=>{locationClick(createKey(location))}}/>
                         ))
                     }
             </MarkerClusterer>
 
+            {/* <MarkerClusterer options={optionTrip}>
+                    {(clusterer) =>
+                        tripList.map((location) => (
+                            <Marker key={createKey(location)} position={location} clusterer={clusterer} onClick={()=>{locationClick(createKey(location))}}/>
+                        ))
+                    }
+            </MarkerClusterer> */}
+
             </GoogleMap>
+            <Box>
+            <OptionsCom countryName={selectCountry}/>
+            </Box>
+            </Paper>
     <Navigation pagNav={'map'}/>
         </>
     ) : <></>
