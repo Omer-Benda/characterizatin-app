@@ -9,6 +9,8 @@ import NewExpense from './components/NewExpense';
 import { Route, Routes } from 'react-router-dom';
 import ExpensesAnalysis from './components/ExpensesAnalysis';
 import Map from './components/Map';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
   const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
@@ -88,7 +90,11 @@ useEffect(()=>{
       <div className="App-characterizatin">
 
 <Routes>
-  <Route path="/" element={<Questionnaire  name={userInApp.UserFirstName}/>}/> 
+<Route path="/" element={<Login />}/> 
+<Route path="/signup" element={<Signup />}/> 
+
+
+  <Route path="Questionnaire" element={<Questionnaire  name={userInApp.UserFirstName}/>}/> 
   <Route path="firstQues" element={<Question pageNum='first'/>}/> 
   <Route path="secondQues" element={<Question name={userInApp.UserFirstName} pageNum='second'/>}/> 
   <Route path="PersonaM" element={<Persona name={userInApp.UserLastName} pageNum='mucillar'/>}/> 
