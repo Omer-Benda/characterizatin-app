@@ -11,6 +11,9 @@ import ExpensesAnalysis from './components/ExpensesAnalysis';
 import Map from './components/Map';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Episodes from './components/Episodes/Episodes';
+import CreateEpisode from './components/CreateEpisode/CreateEpisode';
+import EpisodePage from './components/EpisodePage/EpisodePage';
 
 function App() {
   const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
@@ -90,10 +93,8 @@ useEffect(()=>{
       <div className="App-characterizatin">
 
 <Routes>
-<Route path="/" element={<Login />}/> 
-<Route path="signup" element={<Signup />}/> 
-
-
+  <Route path="/" element={<Login />}/> 
+  <Route path="signup" element={<Signup />}/> 
   <Route path="Questionnaire" element={<Questionnaire  name={userInApp.UserFirstName}/>}/> 
   <Route path="firstQues" element={<Question pageNum='first'/>}/> 
   <Route path="secondQues" element={<Question name={userInApp.UserFirstName} pageNum='second'/>}/> 
@@ -109,6 +110,10 @@ useEffect(()=>{
   <Route path="NewExpense" element={<NewExpense />}/> 
   <Route path="Analysis" element={<ExpensesAnalysis/>}/> 
   <Route path="map" element={<Map/>}/> 
+  <Route path='episodes' element={<Episodes />} />
+  <Route path='create-episode/:NameOfChapter' element={<CreateEpisode/>} />
+  <Route path='create-episode' element={<CreateEpisode />} />
+  <Route path='episode/:NameOfChapter' element={<EpisodePage />} />
 
 </Routes>
 

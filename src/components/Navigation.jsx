@@ -63,7 +63,7 @@ const handleChange = (event, newValue) => {
           />
 
           {/* <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {props.navTo("profile")}} /> */}
-          <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {nav('/profile')}} />
+          <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {nav('/create-episode')}} />
         </BottomNavigation>
     
         </Paper>

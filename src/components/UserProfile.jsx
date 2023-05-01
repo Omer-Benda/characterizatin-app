@@ -14,7 +14,7 @@ import Navigation from './Navigation';
 import Paper from '@mui/material/Paper';
 import TopOfAplication from './TopOfAplication';
 import { Celebration, SelfImprovement } from '@mui/icons-material';
-import { resolvePath } from 'react-router-dom';
+import { resolvePath, useNavigate } from 'react-router-dom';
 
 export default function UserProfile(props) {
   // const monKeyUpload=(req, fileKey, dest,max_mb=5,filesAllow=[".png",".jpg",".jpeg","gif"])=>{
@@ -41,6 +41,7 @@ export default function UserProfile(props) {
   //     }
   //   })
   // }
+  const nav = useNavigate();
 
 
 
@@ -156,7 +157,7 @@ export default function UserProfile(props) {
   marginTop:'20px', marginBottom:'15px'
   }}>
           <Avatar>
-            <AutoStories/>
+            <AutoStories onClick={()=>{nav('/episodes')}} />
           </Avatar>
         </ListItemAvatar>
         <ListItemText
