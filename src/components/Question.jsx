@@ -19,7 +19,7 @@ export default function Question(props) {
   else{
     const randomNumber = Math.ceil((Math.random() * 100));
   if (randomNumber <=33) {
-    const apiUrl='http://localhost:65095/api/users/putid/6'
+    const apiUrl='http://localhost:65095/api/users/putemail/type/?email=Benda669@gmail.com'
     // const apiUrl='http://localhost:58583/api/users/1'
 
     fetch(apiUrl, 
@@ -45,9 +45,8 @@ export default function Question(props) {
     nav('/PersonaM')
   }
   else if (randomNumber <=66) {
-    const apiUrl='http://localhost:65095/api/users/putid/6'
-    // const apiUrl='http://localhost:58583/api/users/1'
-
+    const apiUrl='http://localhost:65095/api/users/putemail/type/?email=Benda669@gmail.com'
+    // const apiUrl='http://localhost:65095/api/users/putid/6'
     fetch(apiUrl, 
       {
       method: 'PUT',
@@ -72,8 +71,8 @@ export default function Question(props) {
 
   }
   else if(randomNumber <=100) {
-    const apiUrl='http://localhost:65095/api/users/putid/6'
-    // const apiUrl='http://localhost:58583/api/users/1'
+    const apiUrl='http://localhost:65095/api/users/putemail/type/?email=Benda669@gmail.com'
+    // const apiUrl='http://localhost:65095/api/users/putid/6'
     fetch(apiUrl, 
       {
       method: 'PUT',

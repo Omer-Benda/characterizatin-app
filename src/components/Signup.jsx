@@ -14,8 +14,10 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { signup } from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 function Signup(props) {
+    const nav=useNavigate();
     const [showPassword1, setShowPassword1] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
     const [loginFields, setLoginFields] = useState({
@@ -133,7 +135,8 @@ function Signup(props) {
                         message: "WOWWWW",
                         open: true
                     })
-                    props.finishSignUp()
+                    // props.finishSignUp()
+                    nav('/Questionnaire')
                 } else {
                     // else show error message and do nothing
                     setSnackbar({

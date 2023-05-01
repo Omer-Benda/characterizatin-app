@@ -98,7 +98,8 @@ function Login(props) {
                 }
                 } variant="contained">Login</Button>
             </div>
-            <Link onClick={() => { props.signupClicked() }}>Signup</Link>
+            {/* <Link onClick={() => { props.signupClicked() }}>Signup</Link> */}
+            <Link onClick={() => { nav('signup') }}>Signup</Link>
             <Snackbar snackbar={snackbar}></Snackbar>
         </>
     );

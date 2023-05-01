@@ -91,7 +91,7 @@ useEffect(()=>{
 
 <Routes>
 <Route path="/" element={<Login />}/> 
-<Route path="/signup" element={<Signup />}/> 
+<Route path="signup" element={<Signup />}/> 
 
 
   <Route path="Questionnaire" element={<Questionnaire  name={userInApp.UserFirstName}/>}/> 

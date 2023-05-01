@@ -23,16 +23,17 @@ export const login = async (loginFields) => {
 
 export const signup = async (loginFields) => {
     debugger;
-    const response = await fetch(`${getEnv()}/api/signup`, {
+    // const response = await fetch(`${getEnv()}/api/signup`, {
+    const response = await fetch(`http://localhost:65095/api/signup`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8'
         },
         body: JSON.stringify({
-            Email: loginFields.email,
-            Password: loginFields.password1,
-            SurName: loginFields.last_name,
-            FirstName: loginFields.first_name
+            UserEmail: loginFields.email,
+            UserPassword: loginFields.password1,
+            UserLastName: loginFields.last_name,
+            UserFirstName: loginFields.first_name
         })
     })
     if (!response.ok) {
