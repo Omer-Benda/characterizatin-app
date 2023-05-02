@@ -124,9 +124,9 @@ function Signup(props) {
                 />
             </FormControl>
             <FormGroup>
-                <FormControlLabel style={{ color: "#333" }} control={<Checkbox onChange={(ev) => { setLoginFields({ ...loginFields, tos: ev.target.checked }) }} />} label="Label" />
+                <FormControlLabel style={{ color: "#333" }} control={<Checkbox onChange={(ev) => { setLoginFields({ ...loginFields, tos: ev.target.checked }) }} />} label="confirm" />
             </FormGroup>
-            <Button disabled={!formValidated()} onClick={async () => {
+            <Button style={{backgroundColor:'#598e89', color:'white'}} disabled={!formValidated()} onClick={async () => {
                 const msg = await signup(loginFields);
                 if (!msg.includes('exist')) {
                     // if user created - login

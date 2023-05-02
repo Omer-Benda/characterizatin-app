@@ -14,7 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { useState } from 'react';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { AccountCircle, CurrencyExchange, Home, TravelExplore } from '@mui/icons-material';
+import { AccountCircle, BookmarkAdd, CurrencyExchange, Home, TravelExplore } from '@mui/icons-material';
 import Budget from './Budget';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
@@ -63,7 +63,7 @@ const handleChange = (event, newValue) => {
           />
 
           {/* <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {props.navTo("profile")}} /> */}
-          <BottomNavigationAction label="בית" value="Home" icon={<Home />} onClick={() => {nav('/create-episode')}} />
+          <BottomNavigationAction label="פרק חדש" value="AddE" icon={<BookmarkAdd />} onClick={() => {nav('/create-episode')}} />
         </BottomNavigation>
     
         </Paper>

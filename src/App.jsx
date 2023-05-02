@@ -14,13 +14,17 @@ import Signup from './components/Signup';
 import Episodes from './components/Episodes/Episodes';
 import CreateEpisode from './components/CreateEpisode/CreateEpisode';
 import EpisodePage from './components/EpisodePage/EpisodePage';
+import Feedbacks from './components/Feedbacks/Feedbacks';
+import FeedbackPage from './components/FeedbackPage/FeedbackPage';
+import CreateFeedback from './components/CreateFeedback/CreateFeedback';
 
 function App() {
   const [userInApp, setUserInApp] = useState('');// בתאכלס, משתמש ישלח כבר מעטר, עד החיבור מביא אותו בגט לפי מיקום
   const [expensesInApp, setExpensesInApp] = useState('');/// הבאה בצורה אסינכורית את כל ההוצאות של המשתמש
 
 useEffect(()=>{
-        const apiUrl='http://localhost:65095/api/users/getemail/?email=Benda669@gmail.com'    
+        // const apiUrl='http://http://194.90.158.74/cgroup99/prod/api/Users/GetByEmail/?email=Benda669@gmail.com'
+        const apiUrl='http://localhost:65095/api/users/getemail/?email=Benda669@gmail.com'        
         fetch(apiUrl, 
           {
           method: 'GET',
@@ -114,6 +118,11 @@ useEffect(()=>{
   <Route path='create-episode/:NameOfChapter' element={<CreateEpisode/>} />
   <Route path='create-episode' element={<CreateEpisode />} />
   <Route path='episode/:NameOfChapter' element={<EpisodePage />} />
+
+          <Route path='feedbacks' element={<Feedbacks />} />
+          <Route path='feedback/:FeedbackKey' element={<FeedbackPage />} />
+          <Route path='create-feedback/:id' element={<CreateFeedback />} />
+          <Route path='create-feedback' element={<CreateFeedback />} />
 
 </Routes>
 

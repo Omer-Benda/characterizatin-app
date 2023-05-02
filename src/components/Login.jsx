@@ -66,7 +66,7 @@ function Login(props) {
                         label="Password"
                     />
                 </FormControl>
-                <Button onClick={async () => {
+                <Button style={{backgroundColor:'#598e89'}} onClick={async () => {
                     //send loginFields to server and validate that user exist
 
                     const res = await login(loginFields);

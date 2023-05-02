@@ -43,23 +43,24 @@ function CreateEpisode() {
     setForm(data);
   };
   return ( //היצירה של הפרק מבחינה ויזואלית
-    <div className='create-episode' >
-      <div className='container center'>
+    <div className='create-episode'>
+      <div className='container center' >
       <TopOfAplication label='יצירה-עדכון פרק'  />
+
       {/* <div className='title'>יומן המסע שלי</div> */}
       <br></br>
       <br></br>
       <br></br>
       <br></br>
-        <form onSubmit={submit} >
-          <div className='input-container'>
+        <form onSubmit={submit}>
+          <div className='input-container' >
             <label>כותרת</label>
             <TextField fullWidth  name='NameOfChapter' id="fullWidthName" cols='50'
               rows='10' onInput={handleChange}
               value={form?.NameOfChapter} />
           </div>
 
-          <div className='input-container'>
+          <div className='input-container' >
             <label>תאריך</label>
             <input
               type='date'
@@ -68,7 +69,7 @@ function CreateEpisode() {
               value={form?.ChapterDate}
             />
           </div>
-          <div className='input-container'>
+          <div className='input-container' >
 
             <label>שעה</label>
             <input
@@ -78,14 +79,14 @@ function CreateEpisode() {
               value={form?.ChapterTime}
             />
           </div>
-          <div className='input-container'>
+          <div className='input-container' >
             <label>תיאור</label>
             <br></br>
             <TextField name='ChapterDescription' fullWidth  id="fullWidth" cols='50'  multiline={true} 
               rows='3' onInput={handleChange}
               value={form?.ChapterDescription} />
           </div>
-          <div className='input-container'>
+          <div className='input-container' >
             <label>תמונה</label>
             <input type='file'></input>
           </div>
@@ -103,9 +104,9 @@ function CreateEpisode() {
           <br></br>
         </form>
       </div>
-      <Navigation/>
+      <Navigation pagNav={'AddE'}/>
     </div>
-    
+  
   );
 }
 
